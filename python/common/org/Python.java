@@ -1617,6 +1617,18 @@ public class Python {
     }
 
     @org.python.Method(
+            __doc__ = "factorial(number) -> number" +
+                    "\n" +
+                    "Returns the factorial of the int number \n",
+            args = {"number"},
+    )
+    public static org.python.Object factorial(org.python.Object number) {
+        return number.__factorial__();
+    }
+
+
+
+    @org.python.Method(
             __doc__ = "setattr(object, name, value)" +
                     "\n" +
                     "Set a named attribute on an object; setattr(x, 'y', v) is equivalent to\n" +

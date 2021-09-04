@@ -935,7 +935,8 @@ public class Int extends org.python.types.Object {
         _doc_ = "factorial(num)",
         args = {"num"}
     )
-    public org.python.Object _factorial_(org.python.Object num) {
+    public org.python.Object __factorial__() {
+        num = this.value;
         if (num == null || num instanceof Bool) {
             return this;
         } else if (num instanceof Int) {
