@@ -929,4 +929,14 @@ public class Int extends org.python.types.Object {
         }
         throw new org.python.exceptions.TypeError("'" + ndigits.typeName() + "' object cannot be interpreted as an integer");
     }
+
+
+    @org.python.Method(
+    	__doc__ = "factorial(num)"
+    	args = {"num"}
+    )
+    public org.python.Object __factorial__(org.python.Object num){
+    	return getInt(Math.factorial(num));
+    }
+
 }
