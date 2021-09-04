@@ -1014,7 +1014,7 @@ public class Object extends java.lang.RuntimeException implements org.python.Obj
             __doc__ = "",
             args = {"num"}
     )
-    public org.python.Object __factorial__ (org.python.Object num) {
+    public org.python.Object __factorial__() {
         throw new org.python.exceptions.TypeError("type " + this.typeName() + " doesn't define __factorial__ method");
     }
 
