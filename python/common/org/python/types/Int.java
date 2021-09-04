@@ -932,11 +932,21 @@ public class Int extends org.python.types.Object {
 
 
     @org.python.Method(
-    	__doc__ = "factorial(num)"
-    	args = {"num"}
+        _doc_ = "factorial(num)",
+        args = {"num"}
     )
-    public org.python.Object __factorial__(org.python.Object num){
-    	return getInt(Math.factorial(num));
+    public org.python.Object _factorial_(org.python.Object num) {
+        if (num == null || num instanceof Bool) {
+            return this;
+        } else if (num instanceof Int) {
+            long n = ((org.python.types.Int) num).value;
+            long result = 1;
+            for (int i = 1; i <= n; i++) {
+                result = result * i;
+            }
+            return getInt(result);
+        }
+        throw new org.python.exceptions.TypeError("'" + num.typeName() + "' object cannot be interpreted as an integer");
     }
 
 }

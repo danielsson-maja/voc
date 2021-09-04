@@ -1010,6 +1010,15 @@ public class Object extends java.lang.RuntimeException implements org.python.Obj
         throw new org.python.exceptions.TypeError("type " + this.typeName() + " doesn't define __round__ method");
     }
 
+    @org.python.Method(
+            __doc__ = "",
+            args = {"num"}
+    )
+    public org.python.Object __factorial__ (org.python.Object num) {
+        throw new org.python.exceptions.TypeError("type " + this.typeName() + " doesn't define __factorial__ method");
+    }
+
+
     /* This method is used from standard library container datatypes */ // FIXME provide more useful comment?
     public static org.python.Object __cmp_eq__(org.python.Object v, org.python.Object w) {
         // identity implies equality
