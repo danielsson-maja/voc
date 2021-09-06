@@ -1,7 +1,5 @@
 from tests.utils import TranspileTestCase
 
-from unittest import expectedFailure
-
 class ProdTests(TranspileTestCase):
 
     def test_positive_numbers(self):
