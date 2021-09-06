@@ -1753,7 +1753,6 @@ public class Python {
     )
     public static org.python.Object sum(org.python.Object iterable, org.python.Object start) {
         org.python.Object value;
-        System.out.println("In sum func");
         if (start != null) {
             value = start;
         } else {
@@ -1775,24 +1774,26 @@ public class Python {
     }
 
     // @org.python.Method(
-    // __doc__ = "Return the number of ways to choose k items from n items without repetition and with order.",
-    // args = {"n", "k"}
+    //     __doc__ = "Return the number of ways to choose k items from n items without repetition and with order.",
+    //     args = {"n", "k"}
     // )
-    // public org.python.Object perm(org.python.Object n, org.python.Object k) {
+    // public static org.python.Object perm(org.python.Object n, org.python.Object k) {
     //     // if(type(n) != int) {
     //     //     throw new TypeError("n must be an integer");
     //     // }
     //     if (k == null) {
-    //         k = org.python.types.Int.getInt(n);
+    //         k = (org.python.types.Int) n;
     //     }
-    //     if (n < 0 || k < 0) {
-    //         throw new ValueError("Both arguments must be positive integers");
+    //     if ( ((org.python.types.Int) n).value < 0 || ((org.python.types.Int) k).value < 0) {
+    //         System.out.println("hej");
+    //         //throw new ValueError("Both arguments must be positive integers");
     //     }
 
-    //     if (k <= n) {
-    //             return fact(n)/fact(n-k);
+    //     if (((org.python.types.Int) k).value <= ((org.python.types.Int) n).value) {
+    //         return org.python.types.Int.getInt(1);
+    //         //return fact(((org.python.types.Int) n).value)/(fact((org.python.types.Int) n).value-((org.python.types.Int) k).value));
     //     } else {
-    //         return 0;
+    //         return org.python.types.Int.getInt(0);
     //     }
     // }
 
@@ -1845,7 +1846,6 @@ public class Python {
             try {
                 iter = org.Python.iter(item);
             } catch (org.python.exceptions.TypeError e) {
-                System.out.println("ERROOOOOR");
                 throw new org.python.exceptions.TypeError("zip argument #" + count + " must support iteration");
             }
             java.util.List<org.python.Object> iters = new java.util.ArrayList<org.python.Object>();
