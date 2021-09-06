@@ -1,3 +1,3 @@
-import Math
+import math
 
-print(Math.factorial(3))
+print(math.factorial(3))
