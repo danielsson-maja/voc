@@ -1773,30 +1773,6 @@ public class Python {
         return value;
     }
 
-    // @org.python.Method(
-    //     __doc__ = "Return the number of ways to choose k items from n items without repetition and with order.",
-    //     args = {"n", "k"}
-    // )
-    // public static org.python.Object perm(org.python.Object n, org.python.Object k) {
-    //     // if(type(n) != int) {
-    //     //     throw new TypeError("n must be an integer");
-    //     // }
-    //     if (k == null) {
-    //         k = (org.python.types.Int) n;
-    //     }
-    //     if ( ((org.python.types.Int) n).value < 0 || ((org.python.types.Int) k).value < 0) {
-    //         System.out.println("hej");
-    //         //throw new ValueError("Both arguments must be positive integers");
-    //     }
-
-    //     if (((org.python.types.Int) k).value <= ((org.python.types.Int) n).value) {
-    //         return org.python.types.Int.getInt(1);
-    //         //return fact(((org.python.types.Int) n).value)/(fact((org.python.types.Int) n).value-((org.python.types.Int) k).value));
-    //     } else {
-    //         return org.python.types.Int.getInt(0);
-    //     }
-    // }
-
     @org.python.Method(
             __doc__ = "type(object_or_name, bases, dict)" +
                     "type(object) -> the object's type\n" +
