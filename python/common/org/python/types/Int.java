@@ -935,9 +935,8 @@ public class Int extends org.python.types.Object {
         __doc__ = "factorial(num)"
     )
     public org.python.Object __factorial__() {
-        long num = this.value;
         long result = 1;
-        for (int i = 1; i <= this.value; i++) {
+        for (int i = 2; i <= this.value; i++) {
             result = result * i;
         }
         return getInt(result);
