@@ -932,16 +932,14 @@ public class Int extends org.python.types.Object {
 
 
     @org.python.Method(
-        _doc_ = "factorial(num)",
-        args = {"num"}
+        __doc__ = "factorial(num)"
     )
     public org.python.Object __factorial__() {
         long num = this.value;
         long result = 1;
-        for (int i = 1; i <= num; i++) {
+        for (int i = 1; i <= this.value; i++) {
             result = result * i;
         }
         return getInt(result);
     }
-
 }

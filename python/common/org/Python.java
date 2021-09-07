@@ -1620,7 +1620,7 @@ public class Python {
             __doc__ = "factorial(number) -> number" +
                     "\n" +
                     "Returns the factorial of the int number \n",
-            args = {"number"},
+            args = {"number"}
     )
     public static org.python.Object factorial(org.python.Object number) {
         return number.__factorial__();
