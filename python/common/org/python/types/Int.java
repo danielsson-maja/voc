@@ -932,9 +932,12 @@ public class Int extends org.python.types.Object {
 
 
     @org.python.Method(
-        __doc__ = "factorial(num)"
+            __doc__ = "factorial(num)"
     )
     public org.python.Object __factorial__() {
+        if (this.value < 0) {
+            throw new org.python.exceptions.ValueError("type " + this.typeName() + " doesn't define __factorial__ method");
+        }
         long result = 1;
         for (int i = 2; i <= this.value; i++) {
             result = result * i;
