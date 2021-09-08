@@ -4,7 +4,7 @@ import static java.lang.Math.floor;
     args = ("num")
 )
 
-public org.python.Object inc(org.python.Object num) {
+public org.python.Object floor(org.python.Object num) {
     if (num == null) {
         System.out.print("Error, number is null");
     }else {
