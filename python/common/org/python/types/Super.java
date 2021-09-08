@@ -884,6 +884,11 @@ public class Super implements org.python.Object {
         throw new org.python.exceptions.TypeError("type " + this.typeName() + " doesn't define __round__ method");
     }
 
+    @Override
+    public org.python.Object __factorial__() {
+        throw new org.python.exceptions.TypeError("type " + this.typeName() + " doesn't define __factorial__ method");
+    }
+
     @org.python.Method(
             __doc__ = ""
     )
