@@ -1,5 +1,7 @@
 package org.python.types;
 
+import static java.lang.Math.floor;
+
 public class Int extends org.python.types.Object {
     public long value;
 
@@ -928,5 +930,18 @@ public class Int extends org.python.types.Object {
             }
         }
         throw new org.python.exceptions.TypeError("'" + ndigits.typeName() + "' object cannot be interpreted as an integer");
+    }
+
+    @org.python.Method(
+        __doc__  = "Return floor of the input",
+        args = ("num")
+    )
+
+    public org.python.Object floor(org.python.Object num) {
+        if (num == null) {
+            System.out.print("Error, number is null");
+        }else {
+            return Math.floor(num);
+        }
     }
 }
