@@ -933,22 +933,10 @@ public class Int extends org.python.types.Object {
     }
 
     @org.python.Method(
-        __doc__  = "Return floor of the input",
-        args = ("num")
+        __doc__  = "Return floor of the input"
     )
 
     public org.python.Object floor() {
-        // if (num == null) {
-        //     System.out.print("Error, number is null");
-        // }else {
-        //     return Math.floor(num);
-        //     org.python.java.Math.floor(num);
-        // }
-        // double floor(double d)
-
-        // if (this.value > 0) return getInt (this.value);
-        // return getInt( this.value - 1);
-
         return getInt ((int)Math.floor(this.value));
     }
 }
