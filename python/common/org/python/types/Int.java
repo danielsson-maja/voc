@@ -936,7 +936,7 @@ public class Int extends org.python.types.Object {
     )
     public org.python.Object __factorial__() {
         if (this.value < 0) {
-            throw new org.python.exceptions.ValueError("type " + this.typeName() + " doesn't define __factorial__ method");
+            throw new org.python.exceptions.ValueError("Negative value cannot be applied in define __factorial__ method");
         }
         long result = 1;
         for (int i = 2; i <= this.value; i++) {
