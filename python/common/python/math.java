@@ -58,17 +58,19 @@ public class math extends org.python.types.Module {
     )
     public static org.python.Object factorial(org.python.Object number) {
         if(number instanceof org.python.types.Int) {
-            long nr = ((org.python.types.Int) number). value;
+            long nr = ((org.python.types.Int) number).value;
             if (nr < 0) {
-                throw new org.python.exceptions.ValueError("Negative value cannot be applied in define __factorial__ method");
+                throw new org.python.exceptions.ValueError("factorial() not defined for negative values");
             }
             long result = 1;
             for (int i = 2; i <= nr; i++) {
                 result = result * i;
             }
             return org.python.types.Int.getInt(result);
-        } else {
+        } else if (number instanceof org.python.types.Float) {
             throw new org.python.exceptions.ValueError("factorial() only accepts integral values");
+        } else {
+            throw new org.python.exceptions.TypeError("'" + number.typeName() + "'" + " object cannot be interpreted as an integer");
         }
     }
 
