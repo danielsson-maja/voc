@@ -167,8 +167,6 @@ public interface Object extends Comparable {
     public org.python.Object __int__();
     public org.python.Object __float__();
     public org.python.Object __round__(org.python.Object ndigits);
-    public org.python.Object __factorial__();
-
     public org.python.Object __index__();
 
     // /**

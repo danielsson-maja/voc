@@ -1616,16 +1616,6 @@ public class Python {
         return number.__round__(ndigits);
     }
 
-    @org.python.Method(
-            __doc__ = "factorial(number) -> number" +
-                    "\n" +
-                    "Returns the factorial of the int number \n",
-            args = {"number"}
-    )
-    public static org.python.Object factorial(org.python.Object number) {
-        return number.__factorial__();
-    }
-
 
 
     @org.python.Method(
