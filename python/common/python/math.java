@@ -67,10 +67,10 @@ public class math extends org.python.types.Module {
                 result = result * i;
             }
             return org.python.types.Int.getInt(result);
-        } else if (number instanceof org.python.types.Str) {
-            throw new org.python.exceptions.TypeError("'str' object cannot be interpreted as an integer");
-        } else {
+        } else if (number instanceof org.python.types.Float) {
             throw new org.python.exceptions.ValueError("factorial() only accepts integral values");
+        } else {
+            throw new org.python.exceptions.TypeError("'" + number.typeName() + "'" + " object cannot be interpreted as an integer");
         }
     }
 
