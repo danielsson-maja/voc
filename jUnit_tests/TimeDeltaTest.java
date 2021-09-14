@@ -6,7 +6,7 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DummyTest {
+public class TimeDeltaTest {
 
     private final org.python.Object[] args1 = { org.python.types.Int.getInt(1), org.python.types.Int.getInt(2), org.python.types.Int.getInt(3) };
     private final TimeDelta td1 = new TimeDelta(args1, Collections.EMPTY_MAP);
