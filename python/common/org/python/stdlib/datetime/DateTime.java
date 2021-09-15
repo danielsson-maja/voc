@@ -12,7 +12,7 @@ public class DateTime extends org.python.types.Object {
     private final int MICROSECOND_INDEX = 6;
 
     private final int MIN_YEAR = 1;
-    private final int MAX_YEAR = 999;
+    private final int MAX_YEAR = 9999;
 
     private Long[] timeUnits = { 0l, 0l, 0l, 0l, 0l, 0l, 0l };
 
@@ -88,7 +88,7 @@ public class DateTime extends org.python.types.Object {
 	    throw new org.python.exceptions.ValueError("second " + this.timeUnits[SECOND_INDEX] + "is out of range");
 	}
 
-	if (this.timeUnits[MICROSECOND_INDEX] < 0 || this.timeUnits[MICROSECOND_INDEX] > 100000) {
+	if (this.timeUnits[MICROSECOND_INDEX] < 0 || this.timeUnits[MICROSECOND_INDEX] > 1000000) {
 	    throw new org.python.exceptions.ValueError("microsecond " + this.timeUnits[MICROSECOND_INDEX] + "is out of range");
 	}
 
