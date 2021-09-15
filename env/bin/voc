@@ -1,0 +1,12 @@
+#!/home/kawthar/Documents/Studies/UU/HT21/P1/MP/tuto/voc/env/bin/python3
+# EASY-INSTALL-ENTRY-SCRIPT: 'voc','console_scripts','voc'
+__requires__ = 'voc'
+import re
+import sys
+from pkg_resources import load_entry_point
+
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
+    sys.exit(
+        load_entry_point('voc', 'console_scripts', 'voc')()
+    )
