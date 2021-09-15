@@ -39,9 +39,13 @@ public class test_DateTime {
 
     @Test
     public void testMonthFail () {
-        org.python.types.Int[] args = new org.python.types.Int[]{Int.getInt(2021), Int.getInt(20), Int.getInt(15), Int.getInt(10), Int.getInt(00), Int.getInt(01)};
+        org.python.types.Int[] args = new org.python.types.Int[]{};
+        //{Int.getInt(2021), Int.getInt(20), Int.getInt(15), Int.getInt(10), Int.getInt(00), Int.getInt(01)};
         java.util.Map<java.lang.String, org.python.Object> kwargs;
         kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
+        kwargs.put("year",Int.getInt(2021));
+        kwargs.put("month",Int.getInt(20));
+        kwargs.put("day",Int.getInt(15));
         DateTime test = new DateTime(args,kwargs);
         assertEquals("2021-09-15 10:00:01",test.__str__().toString());
     }
@@ -65,12 +69,73 @@ public class test_DateTime {
     }
 
     @Test
-    public void testInstanceSuccess () {
+    public void testInstanceSuccess1 () {
         org.python.types.Int[] args = new org.python.types.Int[]{Int.getInt(2021), Int.getInt(9), Int.getInt(15), Int.getInt(10), Int.getInt(00), Int.getInt(01), Int.getInt(2759)};
         java.util.Map<java.lang.String, org.python.Object> kwargs;
         kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
+        /*
+        kwargs.put("year",Int.getInt(2021));
+        kwargs.put("month",Int.getInt(9));
+        kwargs.put("day",Int.getInt(15));
+        kwargs.put("hour",Int.getInt(10));
+        kwargs.put("minute",Int.getInt(00));
+        kwargs.put("seconds",Int.getInt(01));
+        kwargs.put("year",Int.getInt(2759));
+         */
         DateTime test = new DateTime(args, kwargs);
         assertEquals("2021-09-15 10:00:01.002759",test.__str__().toString());
+    }
+
+    @Test
+    public void testInstanceSuccess2 () {
+        org.python.types.Int[] args = new org.python.types.Int[]{};
+        java.util.Map<java.lang.String, org.python.Object> kwargs;
+        kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
+        kwargs.put("year",Int.getInt(2021));
+        kwargs.put("month",Int.getInt(9));
+        kwargs.put("day",Int.getInt(15));
+        kwargs.put("hour",Int.getInt(10));
+        kwargs.put("minute",Int.getInt(00));
+        kwargs.put("second",Int.getInt(01));
+        kwargs.put("microsecond",Int.getInt(2759));
+        DateTime test = new DateTime(args, kwargs);
+        assertEquals("2021-09-15 10:00:01.002759",test.__str__().toString());
+    }
+
+    @Test
+    public void testInstanceFail1 () {
+        org.python.types.Int[] args = new org.python.types.Int[]{Int.getInt(2021), Int.getInt(9), Int.getInt(15), Int.getInt(10), Int.getInt(00), Int.getInt(01), Int.getInt(2759)};
+        java.util.Map<java.lang.String, org.python.Object> kwargs;
+        kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
+        kwargs.put("year",Int.getInt(2021));
+        kwargs.put("month",Int.getInt(9));
+        kwargs.put("day",Int.getInt(16));
+        kwargs.put("hour",Int.getInt(10));
+        kwargs.put("minute",Int.getInt(00));
+        kwargs.put("seconds",Int.getInt(01));
+        kwargs.put("microseconds",Int.getInt(2759));
+        DateTime test = new DateTime(args, kwargs);
+        assertEquals("2021-09-15 10:00:01.002759",test.__str__().toString());
+    }
+
+    @Test
+    public void testInstanceFail2 () {
+        org.python.types.Int[] args = new org.python.types.Int[]{Int.getInt(2021), Int.getInt(9)};
+        java.util.Map<java.lang.String, org.python.Object> kwargs;
+        kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
+        DateTime test = new DateTime(args, kwargs);
+        assertEquals("2021-09",test.__str__().toString());
+    }
+
+    @Test
+    public void testInstanceFail3 () {
+        org.python.types.Int[] args = new org.python.types.Int[]{};
+        java.util.Map<java.lang.String, org.python.Object> kwargs;
+        kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
+        kwargs.put("year",Int.getInt(2021));
+        kwargs.put("month",Int.getInt(9));
+        DateTime test = new DateTime(args, kwargs);
+        assertEquals("2021-09",test.__str__().toString());
     }
 
     @Test
