@@ -59,7 +59,23 @@ public class TimeDelta extends org.python.types.Object {
 			}
 		}
 
-		if (args.length == 3) {
+        if (args.length == 7) {
+            this.days = org.python.types.Int.getInt(((org.python.types.Int) args[0]).value + ((org.python.types.Int) args[6]).value * 7);
+            this.seconds = org.python.types.Int.getInt(((org.python.types.Int) args[1]).value + ((org.python.types.Int) args[4]).value * 60 + ((org.python.types.Int) args[5]).value * 3600);
+            this.microseconds = org.python.types.Int.getInt(((org.python.types.Int) args[2]).value + ((org.python.types.Int) args[3]).value * 1000); }
+        else if (args.length == 6) {
+            this.days = args[0];
+            this.seconds = org.python.types.Int.getInt(((org.python.types.Int) args[1]).value + ((org.python.types.Int) args[4]).value * 60 + ((org.python.types.Int) args[5]).value * 3600);
+            this.microseconds = org.python.types.Int.getInt(((org.python.types.Int) args[2]).value + ((org.python.types.Int) args[3]).value * 1000); }
+        else if (args.length == 5) {
+            this.days = args[0];
+            this.seconds = org.python.types.Int.getInt(((org.python.types.Int) args[1]).value + ((org.python.types.Int) args[4]).value * 60);
+            this.microseconds = org.python.types.Int.getInt(((org.python.types.Int) args[2]).value + ((org.python.types.Int) args[3]).value * 1000); }
+        else if (args.length == 4) {
+            this.days = args[0];
+            this.seconds = args[1];
+            this.microseconds = org.python.types.Int.getInt(((org.python.types.Int) args[2]).value + ((org.python.types.Int) args[3]).value * 1000); }
+		else if (args.length == 3) {
 			this.days = args[0];
 			this.seconds = args[1];
 			this.microseconds = args[2];
@@ -98,7 +114,7 @@ public class TimeDelta extends org.python.types.Object {
 		if (kwargs.get("milliseconds") != null) {
 			long millisecond = ((org.python.types.Int) kwargs.get("milliseconds")).value;
 			long mili = ((org.python.types.Int) this.microseconds).value;
-			mili = mili + millisecond * 100;
+			mili = mili + millisecond * 1000;
 			this.microseconds = org.python.types.Int.getInt(mili);
 		}
     }
@@ -189,7 +205,7 @@ public class TimeDelta extends org.python.types.Object {
 		String days = Long.toString(dayslong);
 		long seconds = ((org.python.types.Int) this.seconds).value;
 		long microseconds = ((org.python.types.Int) this.microseconds).value;
-		String returnStr = days + " days, " + "seconds: " + seconds + ", microseconds: " + microseconds;
+		String returnStr = "days: " + days  + ", seconds: " + seconds + ", microseconds: " + microseconds;
 		return new org.python.types.Str(returnStr);
     }
 
