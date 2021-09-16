@@ -25,9 +25,9 @@ public class TimeDeltaTest {
     public void test_1_argument() {
         org.python.Object[] args = { org.python.types.Int.getInt(1) };
         TimeDelta td = new TimeDelta(args, Collections.EMPTY_MAP);
-        assertEquals(new org.python.types.Str("1"), td.__days__());
-        assertEquals(new org.python.types.Str("0"), td.__seconds__());
-        assertEquals(new org.python.types.Str("0"), td.__microseconds__());
+        assertEquals(org.python.types.Int.getInt(1), td.__days__());
+        assertEquals(org.python.types.Int.getInt(0), td.__seconds__());
+        assertEquals(org.python.types.Int.getInt(0), td.__microseconds__());
     }
 
     @Test
@@ -43,36 +43,36 @@ public class TimeDeltaTest {
     public void test_4_args() {
         org.python.Object[] args = { org.python.types.Int.getInt(1), org.python.types.Int.getInt(1), org.python.types.Int.getInt(1), org.python.types.Int.getInt(1) };
         TimeDelta td = new TimeDelta(args, Collections.EMPTY_MAP);
-        assertEquals(new org.python.types.Str("1"), td.__days__());
-        assertEquals(new org.python.types.Str("1"), td.__seconds__());
-        assertEquals(new org.python.types.Str("1001"), td.__microseconds__());
+        assertEquals(org.python.types.Int.getInt(1), td.__days__());
+        assertEquals(org.python.types.Int.getInt(1), td.__seconds__());
+        assertEquals(org.python.types.Int.getInt(1001), td.__microseconds__());
     }
 
     @Test
     public void test_5_args() {
         org.python.Object[] args = { org.python.types.Int.getInt(1), org.python.types.Int.getInt(1), org.python.types.Int.getInt(1), org.python.types.Int.getInt(1), org.python.types.Int.getInt(1) };
         TimeDelta td = new TimeDelta(args, Collections.EMPTY_MAP);
-        assertEquals(new org.python.types.Str("1"), td.__days__());
-        assertEquals(new org.python.types.Str("61"), td.__seconds__());
-        assertEquals(new org.python.types.Str("1001"), td.__microseconds__());
+        assertEquals(org.python.types.Int.getInt(1), td.__days__());
+        assertEquals(org.python.types.Int.getInt(61), td.__seconds__());
+        assertEquals(org.python.types.Int.getInt(1001), td.__microseconds__());
     }
 
     @Test
     public void test_6_args() {
         org.python.Object[] args = { org.python.types.Int.getInt(1), org.python.types.Int.getInt(1), org.python.types.Int.getInt(1), org.python.types.Int.getInt(1), org.python.types.Int.getInt(1), org.python.types.Int.getInt(1) };
         TimeDelta td = new TimeDelta(args, Collections.EMPTY_MAP);
-        assertEquals(new org.python.types.Str("1"), td.__days__());
-        assertEquals(new org.python.types.Str("3661"), td.__seconds__());
-        assertEquals(new org.python.types.Str("1001"), td.__microseconds__());
+        assertEquals(org.python.types.Int.getInt(1), td.__days__());
+        assertEquals(org.python.types.Int.getInt(3661), td.__seconds__());
+        assertEquals(org.python.types.Int.getInt(1001), td.__microseconds__());
     }
 
     @Test
     public void test_7_args() {
         org.python.Object[] args = { org.python.types.Int.getInt(1), org.python.types.Int.getInt(1), org.python.types.Int.getInt(1), org.python.types.Int.getInt(1), org.python.types.Int.getInt(1), org.python.types.Int.getInt(1), org.python.types.Int.getInt(1) };
         TimeDelta td = new TimeDelta(args, Collections.EMPTY_MAP);
-        assertEquals(new org.python.types.Str("8"), td.__days__());
-        assertEquals(new org.python.types.Str("3661"), td.__seconds__());
-        assertEquals(new org.python.types.Str("1001"), td.__microseconds__());
+        assertEquals(org.python.types.Int.getInt(8), td.__days__());
+        assertEquals(org.python.types.Int.getInt(3661), td.__seconds__());
+        assertEquals(org.python.types.Int.getInt(1001), td.__microseconds__());
     }
 
     /*
@@ -128,9 +128,9 @@ public class TimeDeltaTest {
         java.util.Map<java.lang.String, org.python.Object> kwargs = new HashMap();
         kwargs.put("milliseconds", org.python.types.Int.getInt(-1));
         TimeDelta td = new TimeDelta(args, kwargs);
-        assertEquals(new org.python.types.Str("1"), td.__days__());
-        assertEquals(new org.python.types.Str("0"), td.__seconds__());
-        assertEquals(new org.python.types.Str("999001"), td.__microseconds__());
+        assertEquals(org.python.types.Int.getInt(1), td.__days__());
+        assertEquals(org.python.types.Int.getInt(0), td.__seconds__());
+        assertEquals(org.python.types.Int.getInt(999001), td.__microseconds__());
     }
 
     @Test
@@ -139,9 +139,9 @@ public class TimeDeltaTest {
         java.util.Map<java.lang.String, org.python.Object> kwargs = new HashMap();
         kwargs.put("minutes", org.python.types.Int.getInt(1));
         TimeDelta td = new TimeDelta(args, kwargs);
-        assertEquals(new org.python.types.Str("1"), td.__days__());
-        assertEquals(new org.python.types.Str("60"), td.__seconds__());
-        assertEquals(new org.python.types.Str("0"), td.__microseconds__());
+        assertEquals(org.python.types.Int.getInt(1), td.__days__());
+        assertEquals(org.python.types.Int.getInt(60), td.__seconds__());
+        assertEquals(org.python.types.Int.getInt(0), td.__microseconds__());
     }
 
     @Test
