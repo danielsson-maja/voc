@@ -101,7 +101,7 @@ public class TimeDeltaTest {
     }
 
     @Test
-    public void test_negative_argument() {
+    public void test_negative_days() {
         org.python.Object[] args = { org.python.types.Int.getInt(-1) };
         TimeDelta td = new TimeDelta(args, Collections.EMPTY_MAP);
         assertEquals(new org.python.types.Str("-1"), td.__days__());
@@ -162,7 +162,6 @@ public class TimeDeltaTest {
         assertEquals(org.python.types.Bool.FALSE, td1.__eq__(org.python.types.Int.getInt(5)));
     }
 
-    /*
     @Test
     public void test_gt_true() {
         org.python.Object[] args1 = { org.python.types.Int.getInt(2), org.python.types.Int.getInt(6), org.python.types.Int.getInt(3) };
@@ -173,13 +172,103 @@ public class TimeDeltaTest {
     }
 
     @Test
+    public void test_gt_false() {
+        org.python.Object[] args1 = { org.python.types.Int.getInt(1), org.python.types.Int.getInt(6), org.python.types.Int.getInt(3) };
+        TimeDelta td1 = new TimeDelta(args1, Collections.EMPTY_MAP);
+        org.python.Object[] args2 = { org.python.types.Int.getInt(2), org.python.types.Int.getInt(6), org.python.types.Int.getInt(3) };
+        TimeDelta td2 = new TimeDelta(args2, Collections.EMPTY_MAP);
+        assertEquals(org.python.types.Bool.FALSE, td1.__gt__(td2));
+    }
+
+    @Test
     public void test_gt_int() {
         assertThrows(org.python.exceptions.TypeError.class, () -> {
             org.python.Object[] args1 = { org.python.types.Int.getInt(1), org.python.types.Int.getInt(6), org.python.types.Int.getInt(3) };
             TimeDelta td1 = new TimeDelta(args1, Collections.EMPTY_MAP);
             td1.__gt__(org.python.types.Int.getInt(3));
         });
-    }*/
+    }
+
+    @Test
+    public void test_lt_true() {
+        org.python.Object[] args1 = { org.python.types.Int.getInt(1), org.python.types.Int.getInt(6), org.python.types.Int.getInt(3) };
+        TimeDelta td1 = new TimeDelta(args1, Collections.EMPTY_MAP);
+        org.python.Object[] args2 = { org.python.types.Int.getInt(2), org.python.types.Int.getInt(6), org.python.types.Int.getInt(3) };
+        TimeDelta td2 = new TimeDelta(args2, Collections.EMPTY_MAP);
+        assertEquals(org.python.types.Bool.TRUE, td1.__lt__(td2));
+    }
+
+    @Test
+    public void test_lt_false() {
+        org.python.Object[] args1 = { org.python.types.Int.getInt(2), org.python.types.Int.getInt(6), org.python.types.Int.getInt(3) };
+        TimeDelta td1 = new TimeDelta(args1, Collections.EMPTY_MAP);
+        org.python.Object[] args2 = { org.python.types.Int.getInt(1), org.python.types.Int.getInt(6), org.python.types.Int.getInt(3) };
+        TimeDelta td2 = new TimeDelta(args2, Collections.EMPTY_MAP);
+        assertEquals(org.python.types.Bool.FALSE, td1.__lt__(td2));
+    }
+
+    @Test
+    public void test_lt_int() {
+        assertThrows(org.python.exceptions.TypeError.class, () -> {
+            org.python.Object[] args1 = { org.python.types.Int.getInt(1), org.python.types.Int.getInt(6), org.python.types.Int.getInt(3) };
+            TimeDelta td1 = new TimeDelta(args1, Collections.EMPTY_MAP);
+            td1.__lt__(org.python.types.Int.getInt(3));
+        });
+    }
+
+    @Test
+    public void test_ge_true() {
+        org.python.Object[] args1 = { org.python.types.Int.getInt(2), org.python.types.Int.getInt(6), org.python.types.Int.getInt(3) };
+        TimeDelta td1 = new TimeDelta(args1, Collections.EMPTY_MAP);
+        org.python.Object[] args2 = { org.python.types.Int.getInt(2), org.python.types.Int.getInt(6), org.python.types.Int.getInt(3) };
+        TimeDelta td2 = new TimeDelta(args2, Collections.EMPTY_MAP);
+        assertEquals(org.python.types.Bool.TRUE, td1.__ge__(td2));
+    }
+
+    @Test
+    public void test_ge_false() {
+        org.python.Object[] args1 = { org.python.types.Int.getInt(1), org.python.types.Int.getInt(6), org.python.types.Int.getInt(3) };
+        TimeDelta td1 = new TimeDelta(args1, Collections.EMPTY_MAP);
+        org.python.Object[] args2 = { org.python.types.Int.getInt(2), org.python.types.Int.getInt(6), org.python.types.Int.getInt(3) };
+        TimeDelta td2 = new TimeDelta(args2, Collections.EMPTY_MAP);
+        assertEquals(org.python.types.Bool.FALSE, td1.__ge__(td2));
+    }
+
+    @Test
+    public void test_ge_int() {
+        assertThrows(org.python.exceptions.TypeError.class, () -> {
+            org.python.Object[] args1 = { org.python.types.Int.getInt(1), org.python.types.Int.getInt(6), org.python.types.Int.getInt(3) };
+            TimeDelta td1 = new TimeDelta(args1, Collections.EMPTY_MAP);
+            td1.__ge__(org.python.types.Int.getInt(3));
+        });
+    }
+
+    @Test
+    public void test_le_true() {
+        org.python.Object[] args1 = { org.python.types.Int.getInt(2), org.python.types.Int.getInt(6), org.python.types.Int.getInt(3) };
+        TimeDelta td1 = new TimeDelta(args1, Collections.EMPTY_MAP);
+        org.python.Object[] args2 = { org.python.types.Int.getInt(2), org.python.types.Int.getInt(6), org.python.types.Int.getInt(3) };
+        TimeDelta td2 = new TimeDelta(args2, Collections.EMPTY_MAP);
+        assertEquals(org.python.types.Bool.TRUE, td1.__le__(td2));
+    }
+
+    @Test
+    public void test_le_false() {
+        org.python.Object[] args1 = { org.python.types.Int.getInt(2), org.python.types.Int.getInt(6), org.python.types.Int.getInt(3) };
+        TimeDelta td1 = new TimeDelta(args1, Collections.EMPTY_MAP);
+        org.python.Object[] args2 = { org.python.types.Int.getInt(1), org.python.types.Int.getInt(6), org.python.types.Int.getInt(3) };
+        TimeDelta td2 = new TimeDelta(args2, Collections.EMPTY_MAP);
+        assertEquals(org.python.types.Bool.FALSE, td1.__le__(td2));
+    }
+
+    @Test
+    public void test_le_int() {
+        assertThrows(org.python.exceptions.TypeError.class, () -> {
+            org.python.Object[] args1 = { org.python.types.Int.getInt(1), org.python.types.Int.getInt(6), org.python.types.Int.getInt(3) };
+            TimeDelta td1 = new TimeDelta(args1, Collections.EMPTY_MAP);
+            td1.__le__(org.python.types.Int.getInt(3));
+        });
+    }
 
 
 

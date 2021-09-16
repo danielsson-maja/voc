@@ -170,11 +170,12 @@ public class TimeDelta extends org.python.types.Object {
 
     @org.python.Method()
     public org.python.types.Float total_seconds() {
-        long days = (((org.python.types.Int) this.days).value) * 24 * 3600;
-        long sum_seconds = days + (((org.python.types.Int) this.seconds).value);
-        float microseconds = (float) (((org.python.types.Int) this.microseconds).value);
-        float microsecondsInSeconds = microseconds / 1000;
-        return new org.python.types.Float(sum_seconds + microsecondsInSeconds);
+        double days = ((org.python.types.Int) this.days).value * 24 * 3600;
+        double sum_seconds = days + ((org.python.types.Int) this.seconds).value;
+        double microseconds = ((org.python.types.Int) this.microseconds).value;
+        double microsecondsInSeconds = microseconds / 1000000;
+        double totalSeconds = sum_seconds + microsecondsInSeconds;
+        return new org.python.types.Float(totalSeconds);
     }
 
     @org.python.Method(__doc__ = "", args = {"other"})
@@ -228,19 +229,74 @@ public class TimeDelta extends org.python.types.Object {
             return Bool.FALSE;
         }
     }
-    /*
+
     @org.python.Method(
-        __doc__ = "Return self<=value.",
+        __doc__ = "Return self>value.",
         args = {"other"}
     )
     public Bool __gt__(org.python.Object other) {
         if (other instanceof TimeDelta) {
-
-            return
+            TimeDelta otherObject = (org.python.stdlib.datetime.TimeDelta) other;
+            if (this.total_seconds().value > otherObject.total_seconds().value) {
+                return Bool.TRUE;
+            } else {
+                return Bool.FALSE;
+            }
         } else {
             throw new org.python.exceptions.TypeError("'>' not supported between instances of 'datetime.timedelta' and '"+ other.typeName() +" '");
         }
-    }*/
+    }
+
+    @org.python.Method(
+        __doc__ = "Return self<value.",
+        args = {"other"}
+    )
+    public Bool __lt__(org.python.Object other) {
+        if (other instanceof TimeDelta) {
+            TimeDelta otherObject = (org.python.stdlib.datetime.TimeDelta) other;
+            if (this.total_seconds().value < otherObject.total_seconds().value) {
+                return Bool.TRUE;
+            } else {
+                return Bool.FALSE;
+            }
+        } else {
+            throw new org.python.exceptions.TypeError("'<' not supported between instances of 'datetime.timedelta' and '"+ other.typeName() +" '");
+        }
+    }
+
+    @org.python.Method(
+        __doc__ = "Return self>=value.",
+        args = {"other"}
+    )
+    public Bool __ge__(org.python.Object other) {
+        if (other instanceof TimeDelta) {
+            TimeDelta otherObject = (org.python.stdlib.datetime.TimeDelta) other;
+            if (this.total_seconds().value >= otherObject.total_seconds().value) {
+                return Bool.TRUE;
+            } else {
+                return Bool.FALSE;
+            }
+        } else {
+            throw new org.python.exceptions.TypeError("'>=' not supported between instances of 'datetime.timedelta' and '"+ other.typeName() +" '");
+        }
+    }
+
+    @org.python.Method(
+        __doc__ = "Return self<=value.",
+        args = {"other"}
+    )
+    public Bool __le__(org.python.Object other) {
+        if (other instanceof TimeDelta) {
+            TimeDelta otherObject = (org.python.stdlib.datetime.TimeDelta) other;
+            if (this.total_seconds().value <= otherObject.total_seconds().value) {
+                return Bool.TRUE;
+            } else {
+                return Bool.FALSE;
+            }
+        } else {
+            throw new org.python.exceptions.TypeError("'<=' not supported between instances of 'datetime.timedelta' and '"+ other.typeName() +" '");
+        }
+    }
 
 
 }
