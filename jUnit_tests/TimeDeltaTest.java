@@ -153,28 +153,28 @@ public class TimeDeltaTest {
         kwargs.put("hours", org.python.types.Int.getInt(1));
         kwargs.put("weeks", org.python.types.Int.getInt(1));
         TimeDelta td = new TimeDelta(args, kwargs);
-        assertEquals(new org.python.types.Str("8"), td.__days__());
-        assertEquals(new org.python.types.Str("3660"), td.__seconds__());
-        assertEquals(new org.python.types.Str("1000"), td.__microseconds__());
+        assertEquals(org.python.types.Int.getInt(8), td.__days__());
+        assertEquals(org.python.types.Int.getInt(3660), td.__seconds__());
+        assertEquals(org.python.types.Int.getInt(1000), td.__microseconds__());
     }
 
     @Test
     public void test_negative_days() {
         org.python.Object[] args = { org.python.types.Int.getInt(-1) };
         TimeDelta td = new TimeDelta(args, Collections.EMPTY_MAP);
-        assertEquals(new org.python.types.Str("-1"), td.__days__());
-        assertEquals(new org.python.types.Str("0"), td.__seconds__());
-        assertEquals(new org.python.types.Str("0"), td.__microseconds__());
+        assertEquals(org.python.types.Int.getInt(-1), td.__days__());
+        assertEquals(org.python.types.Int.getInt(0), td.__seconds__());
+        assertEquals(org.python.types.Int.getInt(0), td.__microseconds__());
     }
 
     @Test
     public void test_seconds() {
-        assertEquals(new org.python.types.Str("2"), td1.__seconds__());
+        assertEquals(org.python.types.Int.getInt(2), td1.__seconds__());
     }
 
     @Test
     public void test_microseconds() {
-        assertEquals(new org.python.types.Str("3"), td1.__microseconds__());
+        assertEquals(org.python.types.Int.getInt(3), td1.__microseconds__());
     }
 
     @Test
@@ -185,9 +185,9 @@ public class TimeDeltaTest {
     @Test
     public void test_add() {
         TimeDelta td_added = (TimeDelta)td1.__add__(td2);
-        assertEquals(new org.python.types.Str("3"), td_added.__days__());
-        assertEquals(new org.python.types.Str("8"), td_added.__seconds__());
-        assertEquals(new org.python.types.Str("3"), td_added.__microseconds__());
+        assertEquals(org.python.types.Int.getInt(3), td_added.__days__());
+        assertEquals(org.python.types.Int.getInt(8), td_added.__seconds__());
+        assertEquals(org.python.types.Int.getInt(3), td_added.__microseconds__());
     }
 
     @Test
