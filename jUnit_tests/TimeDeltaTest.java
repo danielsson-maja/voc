@@ -18,7 +18,7 @@ public class TimeDeltaTest {
 
     @Test
     public void test_days() {
-        assertEquals(new org.python.types.Str("1"), td1.__days__());
+        assertEquals(org.python.types.Int.getInt(1), td1.__days__());
     }
 
     @Test
@@ -34,9 +34,9 @@ public class TimeDeltaTest {
     public void test_2_arguments() {
         org.python.Object[] args = { org.python.types.Int.getInt(1), org.python.types.Int.getInt(2) };
         TimeDelta td = new TimeDelta(args, Collections.EMPTY_MAP);
-        assertEquals(new org.python.types.Str("1"), td.__days__());
-        assertEquals(new org.python.types.Str("2"), td.__seconds__());
-        assertEquals(new org.python.types.Str("0"), td.__microseconds__());
+        assertEquals(org.python.types.Int.getInt(1), td.__days__());
+        assertEquals(org.python.types.Int.getInt(2), td.__seconds__());
+        assertEquals(org.python.types.Int.getInt(0), td.__microseconds__());
     }
 
     @Test
@@ -75,7 +75,6 @@ public class TimeDeltaTest {
         assertEquals(org.python.types.Int.getInt(1001), td.__microseconds__());
     }
 
-    /*
     @Test
     public void test_wrong_type_arg() {
         assertThrows(org.python.exceptions.TypeError.class, () -> {
@@ -93,7 +92,6 @@ public class TimeDeltaTest {
             TimeDelta td1 = new TimeDelta(args1, kwargs);
         });
     }
-    */
 
     @Test
     public void test_mircoseconds_overflow() {
@@ -328,6 +326,61 @@ public class TimeDeltaTest {
         });
     }
 
+    @Test
+    public void test_diff() {
+        org.python.Object[] args1 = { org.python.types.Int.getInt(2), org.python.types.Int.getInt(6), org.python.types.Int.getInt(3) };
+        TimeDelta td1 = new TimeDelta(args1, Collections.EMPTY_MAP);
+        org.python.Object[] args2 = { org.python.types.Int.getInt(1), org.python.types.Int.getInt(2), org.python.types.Int.getInt(3) };
+        TimeDelta td2 = new TimeDelta(args2, Collections.EMPTY_MAP);
 
+        org.python.Object[] argsExpected = { org.python.types.Int.getInt(1), org.python.types.Int.getInt(4), org.python.types.Int.getInt(0) };
+        TimeDelta tdExpected = new TimeDelta(argsExpected, Collections.EMPTY_MAP);
+        assertEquals(tdExpected, td1.__diff__(td2));
+    }
 
+    @Test
+    public void test_diff_negative() {
+        org.python.Object[] args1 = { org.python.types.Int.getInt(2), org.python.types.Int.getInt(2), org.python.types.Int.getInt(3) };
+        TimeDelta td1 = new TimeDelta(args1, Collections.EMPTY_MAP);
+        org.python.Object[] args2 = { org.python.types.Int.getInt(1), org.python.types.Int.getInt(6), org.python.types.Int.getInt(4) };
+        TimeDelta td2 = new TimeDelta(args2, Collections.EMPTY_MAP);
+
+        org.python.Object[] argsExpected = { org.python.types.Int.getInt(0), org.python.types.Int.getInt(86395), org.python.types.Int.getInt(999999) };
+        TimeDelta tdExpected = new TimeDelta(argsExpected, Collections.EMPTY_MAP);
+        assertEquals(tdExpected, td1.__diff__(td2));
+    }
+
+    @Test
+    public void test_mult() {
+        org.python.Object[] args1 = { org.python.types.Int.getInt(2), org.python.types.Int.getInt(2), org.python.types.Int.getInt(3) };
+        TimeDelta td1 = new TimeDelta(args1, Collections.EMPTY_MAP);
+        org.python.Object[] args2 = { org.python.types.Int.getInt(1), org.python.types.Int.getInt(6), org.python.types.Int.getInt(4) };
+        TimeDelta td2 = new TimeDelta(args2, Collections.EMPTY_MAP);
+
+        org.python.Object[] argsExpected = { org.python.types.Int.getInt(2), org.python.types.Int.getInt(12), org.python.types.Int.getInt(12) };
+        TimeDelta tdExpected = new TimeDelta(argsExpected, Collections.EMPTY_MAP);
+        assertEquals(tdExpected, td1.__mult__(td2));
+    }
+
+    @Test
+    public void test_mult_large_values() {
+        org.python.Object[] args1 = { org.python.types.Int.getInt(2), org.python.types.Int.getInt(2), org.python.types.Int.getInt(2000000) };
+        TimeDelta td1 = new TimeDelta(args1, Collections.EMPTY_MAP);
+        org.python.types.Int i = org.python.types.Int.getInt(2);
+
+        org.python.Object[] argsExpected = { org.python.types.Int.getInt(4), org.python.types.Int.getInt(8), org.python.types.Int.getInt(0) };
+        TimeDelta tdExpected = new TimeDelta(argsExpected, Collections.EMPTY_MAP);
+        assertEquals(tdExpected, td1.__mult__(i));
+    }
+
+    @Test
+    public void test_mult_negative_values() {
+        org.python.Object[] args1 = { org.python.types.Int.getInt(-2), org.python.types.Int.getInt(-2), org.python.types.Int.getInt(2000000) };
+        TimeDelta td1 = new TimeDelta(args1, Collections.EMPTY_MAP);
+        org.python.types.Int i = org.python.types.Int.getInt(2);
+
+        org.python.Object[] argsExpected = { org.python.types.Int.getInt(-4) };
+        TimeDelta tdExpected = new TimeDelta(argsExpected, Collections.EMPTY_MAP);
+        assertEquals(tdExpected, td1.__mult__(i));
+    }
 }

@@ -36,7 +36,6 @@ public class TimeDelta extends org.python.types.Object {
             throw new org.python.exceptions.TypeError("__new__() takes at most 7 arguments (" + args.length + " given)");
         }
 
-        /*
         for (org.python.Object arg : args) {
             if (!(arg instanceof org.python.types.Int) ) {
                 throw new org.python.exceptions.TypeError("unsupported type for timedelta days component: '"+ arg.typeName() +" '");
@@ -47,7 +46,7 @@ public class TimeDelta extends org.python.types.Object {
             if (!(kwarg.getValue() instanceof org.python.types.Int) ) {
                 throw new org.python.exceptions.TypeError("unsupported type for timedelta days component: '"+ kwarg.getValue().typeName() +" '");
             }
-        }*/
+        }
 
         String[] allowed = {"days", "seconds", "microseconds", "milliseconds", "minutes", "hours", "weeks"};
         List<String> allowedList = Arrays.asList(allowed);
@@ -284,7 +283,7 @@ public class TimeDelta extends org.python.types.Object {
     }
 
     @org.python.Method(
-        __doc__ = "Return self>value.",
+        __doc__ = "Return self>other.",
         args = {"other"}
     )
     public Bool __gt__(org.python.Object other) {
@@ -301,7 +300,7 @@ public class TimeDelta extends org.python.types.Object {
     }
 
     @org.python.Method(
-        __doc__ = "Return self<value.",
+        __doc__ = "Return self<other.",
         args = {"other"}
     )
     public Bool __lt__(org.python.Object other) {
@@ -318,7 +317,7 @@ public class TimeDelta extends org.python.types.Object {
     }
 
     @org.python.Method(
-        __doc__ = "Return self>=value.",
+        __doc__ = "Return self>=other.",
         args = {"other"}
     )
     public Bool __ge__(org.python.Object other) {
@@ -335,7 +334,7 @@ public class TimeDelta extends org.python.types.Object {
     }
 
     @org.python.Method(
-        __doc__ = "Return self<=value.",
+        __doc__ = "Return self<=other.",
         args = {"other"}
     )
     public Bool __le__(org.python.Object other) {
@@ -350,20 +349,40 @@ public class TimeDelta extends org.python.types.Object {
             throw new org.python.exceptions.TypeError("'<=' not supported between instances of 'datetime.timedelta' and '"+ other.typeName() +" '");
         }
     }
-    /*
+
     @org.python.Method(
-        __doc__ = "Return self<=value.",
+        __doc__ = "Return new TimeDelta object with difference of the days, seconds and microseconds of self and other.",
         args = {"other"}
     )
     public TimeDelta __diff__(org.python.Object other) {
         if (other instanceof TimeDelta) {
             TimeDelta otherObject = (org.python.stdlib.datetime.TimeDelta) other;
-            this.__days__() - otherObject.__days__();
-
+            long diffDays = (this.__days__()).value - (otherObject.__days__()).value;
+            long diffSeconds = (this.__seconds__()).value - (otherObject.__seconds__()).value;
+            long diffMicroseconds = (this.__microseconds__()).value - (otherObject.__microseconds__()).value;
+            org.python.Object[] args = { org.python.types.Int.getInt(diffDays), org.python.types.Int.getInt(diffSeconds), org.python.types.Int.getInt(diffMicroseconds) };
+            return new TimeDelta(args, Collections.EMPTY_MAP);
         } else {
-            throw new org.python.exceptions.TypeError("'<=' not supported between instances of 'datetime.timedelta' and '"+ other.typeName() +" '");
+            throw new org.python.exceptions.TypeError("'__diff__' not supported between instances of 'datetime.timedelta' and '"+ other.typeName() +" '");
         }
-    }*/
+    }
+
+    @org.python.Method(
+        __doc__ = "Return new TimeDelta object with product of the days, seconds and microseconds of self and i.",
+        args = {"other"}
+    )
+    public TimeDelta __mult__(org.python.Object other) {
+        if (other instanceof org.python.types.Int) {
+            org.python.types.Int i = (org.python.types.Int) other;
+            long prodDays = (this.__days__()).value * (i).value;
+            long prodSeconds = (this.__seconds__()).value * (i).value;
+            long prodMicroseconds = (this.__microseconds__()).value * (i).value;
+            org.python.Object[] args = { org.python.types.Int.getInt(prodDays), org.python.types.Int.getInt(prodSeconds), org.python.types.Int.getInt(prodMicroseconds) };
+            return new TimeDelta(args, Collections.EMPTY_MAP);
+        } else {
+            throw new org.python.exceptions.TypeError("'__mult__' not supported between instances of 'datetime.timedelta' and '"+ other.typeName() +" '");
+        }
+    }
 
 
 }
