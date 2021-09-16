@@ -75,6 +75,64 @@ public class TimeDeltaTest {
         assertEquals(new org.python.types.Str("1001"), td.__microseconds__());
     }
 
+    /*
+    @Test
+    public void test_wrong_type_arg() {
+        assertThrows(org.python.exceptions.TypeError.class, () -> {
+            org.python.Object[] args1 = { new org.python.types.Str("test") };
+            TimeDelta td1 = new TimeDelta(args1, Collections.EMPTY_MAP);
+        });
+    }
+
+    @Test
+    public void test_wrong_type_kwarg() {
+        assertThrows(org.python.exceptions.TypeError.class, () -> {
+            org.python.Object[] args1 = { org.python.types.Int.getInt(1) };
+            java.util.Map<java.lang.String, org.python.Object> kwargs = new HashMap();
+            kwargs.put("minutes", new org.python.types.Str("test"));
+            TimeDelta td1 = new TimeDelta(args1, kwargs);
+        });
+    }
+    */
+
+    @Test
+    public void test_mircoseconds_overflow() {
+        org.python.Object[] args = { org.python.types.Int.getInt(1), org.python.types.Int.getInt(1), org.python.types.Int.getInt(2000000) };
+        TimeDelta td = new TimeDelta(args, Collections.EMPTY_MAP);
+        assertEquals(org.python.types.Int.getInt(1), td.__days__());
+        assertEquals(org.python.types.Int.getInt(3), td.__seconds__());
+        assertEquals(org.python.types.Int.getInt(0), td.__microseconds__());
+    }
+
+    @Test
+    public void test_negative_mircoseconds() {
+        org.python.Object[] args = { org.python.types.Int.getInt(1), org.python.types.Int.getInt(2), org.python.types.Int.getInt(-5) };
+        TimeDelta td = new TimeDelta(args, Collections.EMPTY_MAP);
+        assertEquals(org.python.types.Int.getInt(1), td.__days__());
+        assertEquals(org.python.types.Int.getInt(1), td.__seconds__());
+        assertEquals(org.python.types.Int.getInt(999995), td.__microseconds__());
+    }
+
+    @Test
+    public void test_overflow_to_overflow() {
+        org.python.Object[] args = { org.python.types.Int.getInt(1), org.python.types.Int.getInt(0), org.python.types.Int.getInt(-5) };
+        TimeDelta td = new TimeDelta(args, Collections.EMPTY_MAP);
+        assertEquals(org.python.types.Int.getInt(0), td.__days__());
+        assertEquals(org.python.types.Int.getInt(86399), td.__seconds__());
+        assertEquals(org.python.types.Int.getInt(999995), td.__microseconds__());
+    }
+
+    @Test
+    public void test_overflow_with_negative_kwargs() {
+        org.python.Object[] args = { org.python.types.Int.getInt(1), org.python.types.Int.getInt(1), org.python.types.Int.getInt(1) };
+        java.util.Map<java.lang.String, org.python.Object> kwargs = new HashMap();
+        kwargs.put("milliseconds", org.python.types.Int.getInt(-1));
+        TimeDelta td = new TimeDelta(args, kwargs);
+        assertEquals(new org.python.types.Str("1"), td.__days__());
+        assertEquals(new org.python.types.Str("0"), td.__seconds__());
+        assertEquals(new org.python.types.Str("999001"), td.__microseconds__());
+    }
+
     @Test
     public void test_1_kwargs() {
         org.python.Object[] args = { org.python.types.Int.getInt(1) };

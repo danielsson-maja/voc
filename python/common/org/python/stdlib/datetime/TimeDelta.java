@@ -36,6 +36,19 @@ public class TimeDelta extends org.python.types.Object {
             throw new org.python.exceptions.TypeError("__new__() takes at most 7 arguments (" + args.length + " given)");
         }
 
+        /*
+        for (org.python.Object arg : args) {
+            if (!(arg instanceof org.python.types.Int) ) {
+                throw new org.python.exceptions.TypeError("unsupported type for timedelta days component: '"+ arg.typeName() +" '");
+            }
+        }
+
+        for (java.util.Map.Entry<java.lang.String, org.python.Object> kwarg : kwargs.entrySet()){
+            if (!(kwarg.getValue() instanceof org.python.types.Int) ) {
+                throw new org.python.exceptions.TypeError("unsupported type for timedelta days component: '"+ kwarg.getValue().typeName() +" '");
+            }
+        }*/
+
         String[] allowed = {"days", "seconds", "microseconds", "milliseconds", "minutes", "hours", "weeks"};
         List<String> allowedList = Arrays.asList(allowed);
         if (!kwargs.isEmpty()) {
@@ -136,21 +149,61 @@ public class TimeDelta extends org.python.types.Object {
             mili = mili + millisecond * 1000;
             this.microseconds = org.python.types.Int.getInt(mili);
         }
+
+        this.normalizeMicroseconds();
+        this.normalizeSeconds();
     }
+
+    private void normalizeMicroseconds() {
+        long seconds = ((org.python.types.Int) this.seconds).value;
+        long microseconds = ((org.python.types.Int) this.microseconds).value;
+
+        while ( microseconds >= 1000000) {
+            microseconds -= 1000000;
+            seconds += 1;
+        }
+
+        while (microseconds < 0) {
+            microseconds = 1000000 + microseconds;
+            seconds -= 1;
+        }
+
+        this.seconds = org.python.types.Int.getInt(seconds);
+        this.microseconds = org.python.types.Int.getInt(microseconds);
+    }
+
+    private void normalizeSeconds() {
+        long days = ((org.python.types.Int) this.days).value;
+        long seconds = ((org.python.types.Int) this.seconds).value;
+
+        while ( seconds >= 86400) {
+            seconds -= 86400;
+            days += 1;
+        }
+
+        while (seconds < 0) {
+            seconds = 86400 + seconds;
+            days -= 1;
+        }
+
+        this.days = org.python.types.Int.getInt(days);
+        this.seconds = org.python.types.Int.getInt(seconds);
+    }
+
 
     @org.python.Method(__doc__ = "returns days")
-    public org.python.types.Str __days__() {
-        return new org.python.types.Str(this.days + "");
+    public org.python.types.Int __days__() {
+        return (org.python.types.Int) this.days;
     }
 
-    @org.python.Method(__doc__ = "returns month")
-    public org.python.types.Str __seconds__() {
-        return new org.python.types.Str(this.seconds + "");
+    @org.python.Method(__doc__ = "returns seconds")
+    public org.python.types.Int __seconds__() {
+        return (org.python.types.Int) this.seconds;
     }
 
-    @org.python.Method(__doc__ = "returns day")
-    public org.python.types.Str __microseconds__() {
-        return new org.python.types.Str(this.microseconds + "");
+    @org.python.Method(__doc__ = "returns microseconds")
+    public org.python.types.Int __microseconds__() {
+        return (org.python.types.Int) this.microseconds;
     }
 
     @org.python.Method()
@@ -297,6 +350,20 @@ public class TimeDelta extends org.python.types.Object {
             throw new org.python.exceptions.TypeError("'<=' not supported between instances of 'datetime.timedelta' and '"+ other.typeName() +" '");
         }
     }
+    /*
+    @org.python.Method(
+        __doc__ = "Return self<=value.",
+        args = {"other"}
+    )
+    public TimeDelta __diff__(org.python.Object other) {
+        if (other instanceof TimeDelta) {
+            TimeDelta otherObject = (org.python.stdlib.datetime.TimeDelta) other;
+            this.__days__() - otherObject.__days__();
+
+        } else {
+            throw new org.python.exceptions.TypeError("'<=' not supported between instances of 'datetime.timedelta' and '"+ other.typeName() +" '");
+        }
+    }*/
 
 
 }
