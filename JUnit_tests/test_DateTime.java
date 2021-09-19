@@ -213,12 +213,16 @@ public class test_DateTime {
 
     @Test
     public void testFromOrdinal () {
-        //assertEquals(Bool.FALSE,DateTime.__lt__((DateTime) DateTime.today(),test));
+        DateTime test = (DateTime) DateTime.today();
+        long ordinal = 738052;
+//        Equivalent to 2021-09-19 -> 738052
+        assertEquals("2021-09-19", test.fromOrdinal(ordinal));
     }
 
     @Test
     public void testToOrdinal () {
-        //assertEquals(Bool.FALSE,DateTime.__lt__((DateTime) DateTime.today(),test));
+        DateTime test = (DateTime) DateTime.today();
+        assertEquals("738052",test.toOrdinal(test));
     }
 
 

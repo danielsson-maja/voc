@@ -228,17 +228,72 @@ public class DateTime extends org.python.types.Object {
 
     }
 
-    /*
-    public DateTime fromOrdinal (double ordinal){
-        return new DateTime();
-    }
-    */
 
-    /*
-    public double toOridnal () {
-        return 0;
+    public String fromOrdinal (long ordinal){
+        for (int y = 1; y < 9999; y++) {
+            for (int m = 1; m < 13; m++) {
+                for (int d = 1; d < 32; d++) {
+
+                    if (ordinal - d <= 0) {
+                        return y + "-" + String.format("%02d", m) + "-" + String.format("%02d", d);
+                    }
+                    if (d == 31){
+                        ordinal = ordinal - d;
+                        break;
+                    }
+                    if ( y % 400 == 0 || (y % 4 == 0 && y % 100 != 0) ){
+                        if (m == 2 && d == 29){
+                            ordinal = ordinal - d;
+                            break;
+                        }
+                    } else {
+                        if (m == 2 && d == 28){
+                            ordinal = ordinal - d;
+                            break;
+                        }
+                    }
+
+                    if ((m == 4 || m == 6 || m == 9 || m == 11) && d == 30) {
+                        ordinal = ordinal - d;
+                        break;
+                    }
+
+                }
+            }
+
+        }
+        return String.valueOf(ordinal);
     }
-    */
+
+
+    public boolean checkLeap (long year){
+        return year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);
+    }
+
+    public int checkDaysInMonth (long month, long year){
+        if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12 ){
+            return 31;
+        }
+        if (month == 4 || month == 6 || month == 9 || month == 11){
+            return 30;
+        }
+        if (month == 2 && checkLeap(year)){
+            return 29;
+        }
+        return 28;
+    }
+
+    public String toOrdinal (DateTime date) {
+        long year = ((org.python.types.Int) date.year.__int__()).value;
+        long month = ((org.python.types.Int) date.month.__int__()).value;
+        long day = ((org.python.types.Int) date.day.__int__()).value;
+        long leapYearUntil2021 = 98;
+        long dayInMonth = date.checkDaysInMonth(month,year);
+        long dayInNormalYear = 365;
+
+        return String.valueOf(year*dayInNormalYear + month*dayInMonth + day + leapYearUntil2021);
+    }
+
 
     public static org.python.types.Bool __lt__ (DateTime date, DateTime date2) {
         double year = ((org.python.types.Int) date.year.__int__()).value;
