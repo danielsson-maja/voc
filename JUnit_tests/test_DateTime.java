@@ -29,10 +29,28 @@ Possible implementations/functions:
 public class test_DateTime {
 
 
+    public Int[] dateTimeArgs (int year, int month, int day, int hour, int minute, int second, int microsecond) {
+        org.python.types.Int[] args = new org.python.types.Int[]{Int.getInt(year), Int.getInt(month), Int.getInt(day), Int.getInt(hour), Int.getInt(minute), Int.getInt(second), Int.getInt(microsecond)};
+        return args;
+    }
+
+    public Map<String,Object> dateTimeKwargs (int year, int month, int day, int hour, int minute, int second, int microsecond) {
+        java.util.Map<java.lang.String, org.python.Object> kwargs;
+        kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
+        kwargs.put("year",Int.getInt(year));
+        kwargs.put("month",Int.getInt(month));
+        kwargs.put("day",Int.getInt(day));
+        kwargs.put("hour",Int.getInt(hour));
+        kwargs.put("minute",Int.getInt(minute));
+        kwargs.put("second",Int.getInt(second));
+        kwargs.put("microsecond",Int.getInt(microsecond));
+        return kwargs;
+    }
+
     @Test
-    public void testYearFail () {
+    public void testYearError () {
         Assertions.assertThrows(ValueError.class, () -> {
-            org.python.types.Int[] args = new org.python.types.Int[]{Int.getInt(-2021), Int.getInt(9), Int.getInt(15), Int.getInt(10), Int.getInt(00), Int.getInt(01)};
+            org.python.types.Int[] args = dateTimeArgs(-2021,9,15,10,00,00,00);
             java.util.Map<java.lang.String, org.python.Object> kwargs;
             kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
             DateTime test = new DateTime(args, kwargs);
@@ -40,22 +58,18 @@ public class test_DateTime {
     }
 
     @Test
-    public void testMonthFail () {
+    public void testMonthError () {
         Assertions.assertThrows(ValueError.class, () -> {
             org.python.types.Int[] args = new org.python.types.Int[]{};
-            java.util.Map<java.lang.String, org.python.Object> kwargs;
-            kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
-            kwargs.put("year", Int.getInt(2021));
-            kwargs.put("month", Int.getInt(20));
-            kwargs.put("day", Int.getInt(15));
+            java.util.Map<java.lang.String, org.python.Object> kwargs = dateTimeKwargs(2021,20,15,0,0,0,0);
             DateTime test = new DateTime(args, kwargs);
         });
     }
 
     @Test
-    public void testDayFail () {
+    public void testDayError () {
         Assertions.assertThrows(ValueError.class, () -> {
-            org.python.types.Int[] args = new org.python.types.Int[]{Int.getInt(2021), Int.getInt(9), Int.getInt(0), Int.getInt(10), Int.getInt(00), Int.getInt(01)};
+            org.python.types.Int[] args = dateTimeArgs(2021,9,0,10,00,00,00);
             java.util.Map<java.lang.String, org.python.Object> kwargs;
             kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
             DateTime test = new DateTime(args, kwargs);
@@ -63,9 +77,9 @@ public class test_DateTime {
     }
 
     @Test
-    public void testMicrosecondsFail () {
+    public void testMicrosecondsError () {
         Assertions.assertThrows(ValueError.class, () -> {
-            org.python.types.Int[] args = new org.python.types.Int[]{Int.getInt(2021), Int.getInt(9), Int.getInt(15), Int.getInt(10), Int.getInt(00), Int.getInt(01), Int.getInt(10000000)};
+            org.python.types.Int[] args = dateTimeArgs(2021,9,15,10,00,00,10000000);
             java.util.Map<java.lang.String, org.python.Object> kwargs;
             kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
             DateTime test = new DateTime(args, kwargs);
@@ -74,7 +88,7 @@ public class test_DateTime {
 
     @Test
     public void testInstanceSuccess1 () {
-        org.python.types.Int[] args = new org.python.types.Int[]{Int.getInt(2021), Int.getInt(9), Int.getInt(15), Int.getInt(10), Int.getInt(00), Int.getInt(01), Int.getInt(2759)};
+        org.python.types.Int[] args = dateTimeArgs(2021,9,15,10,00,01,2759);
         java.util.Map<java.lang.String, org.python.Object> kwargs;
         kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
         DateTime test = new DateTime(args, kwargs);
@@ -84,23 +98,16 @@ public class test_DateTime {
     @Test
     public void testInstanceSuccess2 () {
         org.python.types.Int[] args = new org.python.types.Int[]{};
-        java.util.Map<java.lang.String, org.python.Object> kwargs;
-        kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
-        kwargs.put("year",Int.getInt(2021));
-        kwargs.put("month",Int.getInt(9));
-        kwargs.put("day",Int.getInt(15));
-        kwargs.put("hour",Int.getInt(10));
-        kwargs.put("minute",Int.getInt(00));
-        kwargs.put("second",Int.getInt(01));
-        kwargs.put("microsecond",Int.getInt(2759));
+        java.util.Map<java.lang.String, org.python.Object> kwargs = dateTimeKwargs(2021,9,15,10,0,01,2759);
         DateTime test = new DateTime(args, kwargs);
         assertEquals("2021-09-15 10:00:01.002759",test.__str__().toString());
     }
 
     @Test
-    public void testInstanceFail1 () {
+    public void testInstanceError1 () {
         Assertions.assertThrows(SyntaxError.class, () -> {
-            org.python.types.Int[] args = new org.python.types.Int[]{Int.getInt(2021), Int.getInt(9), Int.getInt(15), Int.getInt(10), Int.getInt(00), Int.getInt(01), Int.getInt(2759)};
+            org.python.types.Int[] args = dateTimeArgs(2021,9,15,10,00,01,2759);
+            //java.util.Map<java.lang.String, org.python.Object> kwargs = dateTimeKwargs(2021,9,16,10,00,01,2759);
             java.util.Map<java.lang.String, org.python.Object> kwargs;
             kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
             kwargs.put("year", Int.getInt(2021));
@@ -115,7 +122,7 @@ public class test_DateTime {
     }
 
     @Test
-    public void testInstanceFail2 () {
+    public void testInstanceError2 () {
         Assertions.assertThrows(TypeError.class, () -> {
             org.python.types.Int[] args = new org.python.types.Int[]{Int.getInt(2021), Int.getInt(9)};
             java.util.Map<java.lang.String, org.python.Object> kwargs;
@@ -127,7 +134,7 @@ public class test_DateTime {
 
     @Test
     public void testGetSuccess () {
-        org.python.types.Int[] args = new org.python.types.Int[]{Int.getInt(2021), Int.getInt(9), Int.getInt(15), Int.getInt(10), Int.getInt(00), Int.getInt(01), Int.getInt(2759)};
+        org.python.types.Int[] args = dateTimeArgs(2021,9,15,10,0,01,2759);
         java.util.Map<java.lang.String, org.python.Object> kwargs;
         kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
         DateTime test = new DateTime(args,kwargs);
@@ -142,7 +149,7 @@ public class test_DateTime {
 
     @Test
     public void testDateSuccess () {
-        org.python.types.Int[] args = new org.python.types.Int[]{Int.getInt(2021), Int.getInt(9), Int.getInt(15)};
+        org.python.types.Int[] args = dateTimeArgs(2021,9,15,0,0,0,0);
         java.util.Map<java.lang.String, org.python.Object> kwargs;
         kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
         DateTime test = new DateTime(args,kwargs);
@@ -157,7 +164,7 @@ public class test_DateTime {
 
     @Test
     public void testWeekdaySuccess () {
-        org.python.types.Int[] args = new org.python.types.Int[]{Int.getInt(2021), Int.getInt(9), Int.getInt(15)};
+        org.python.types.Int[] args = dateTimeArgs(2021,9,15,0,0,0,0);
         java.util.Map<java.lang.String, org.python.Object> kwargs;
         kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
         DateTime test = new DateTime(args,kwargs);
@@ -166,7 +173,7 @@ public class test_DateTime {
 
     @Test
     public void testLt () {
-        org.python.types.Int[] args = new org.python.types.Int[]{Int.getInt(2021), Int.getInt(9), Int.getInt(15)};
+        org.python.types.Int[] args = dateTimeArgs(2021,9,15,0,0,0,0);
         java.util.Map<java.lang.String, org.python.Object> kwargs;
         kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
         DateTime test = new DateTime(args,kwargs);
@@ -175,38 +182,24 @@ public class test_DateTime {
 
     @Test
     public void testGt () {
-        org.python.types.Int[] args = new org.python.types.Int[]{Int.getInt(2021), Int.getInt(9), Int.getInt(15), Int.getInt(10), Int.getInt(00), Int.getInt(01)};
+        org.python.types.Int[] args = dateTimeArgs(2021,9,15,0,0,01,0);
         java.util.Map<java.lang.String, org.python.Object> kwargs;
         kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
         DateTime test = new DateTime(args,kwargs);
         org.python.types.Int[] args2 = new org.python.types.Int[]{};
-        java.util.Map<java.lang.String, org.python.Object> kwargs2;
-        kwargs2 = new java.util.HashMap<java.lang.String, org.python.Object>();
-        kwargs2.put("year", Int.getInt(2021));
-        kwargs2.put("month", Int.getInt(9));
-        kwargs2.put("day", Int.getInt(15));
-        kwargs2.put("hour", Int.getInt(10));
-        kwargs2.put("minute", Int.getInt(00));
+        java.util.Map<java.lang.String, org.python.Object> kwargs2 = dateTimeKwargs(2021,9,15,10,0,0,0);
         DateTime test2 = new DateTime(args2,kwargs2);
         assertEquals(Bool.TRUE,DateTime.__gt__(test,test2));
     }
 
     @Test
     public void testEq () {
-        org.python.types.Int[] args = new org.python.types.Int[]{Int.getInt(2021), Int.getInt(9), Int.getInt(15), Int.getInt(10), Int.getInt(00), Int.getInt(01), Int.getInt(2759)};
+        org.python.types.Int[] args = dateTimeArgs(2021,9,15,10,0,01,2759);
         java.util.Map<java.lang.String, org.python.Object> kwargs;
         kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
         DateTime test = new DateTime(args,kwargs);
         org.python.types.Int[] args2 = new org.python.types.Int[]{};
-        java.util.Map<java.lang.String, org.python.Object> kwargs2;
-        kwargs2 = new java.util.HashMap<java.lang.String, org.python.Object>();
-        kwargs2.put("year", Int.getInt(2021));
-        kwargs2.put("month", Int.getInt(9));
-        kwargs2.put("day", Int.getInt(15));
-        kwargs2.put("hour", Int.getInt(10));
-        kwargs2.put("minute", Int.getInt(00));
-        kwargs2.put("second", Int.getInt(01));
-        kwargs2.put("microsecond", Int.getInt(2759));
+        java.util.Map<java.lang.String, org.python.Object> kwargs2 = dateTimeKwargs(2021,9,15,10,0,01,2759);
         DateTime test2 = new DateTime(args2,kwargs2);
         assertEquals(Bool.TRUE,DateTime.__eq__(test,test2));
     }
