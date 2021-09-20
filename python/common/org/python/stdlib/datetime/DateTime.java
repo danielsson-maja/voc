@@ -213,11 +213,24 @@ public class DateTime extends org.python.types.Object {
 	return new DateTime(args, Collections.emptyMap());
     }
 
+    public static double [] getValues (DateTime date) {
+        double year = ((org.python.types.Int) date.year.__int__()).value;
+        double month = ((org.python.types.Int) date.month.__int__()).value;
+        double day = ((org.python.types.Int) date.day.__int__()).value;
+        double hour = ((org.python.types.Int) date.hour.__int__()).value;
+        double minute = ((org.python.types.Int) date.minute.__int__()).value;
+        double second = ((org.python.types.Int) date.second.__int__()).value;
+        double microsecond = ((org.python.types.Int) date.microsecond.__int__()).value;
+        double [] values = new double[]{year,month,day,hour,minute,second,microsecond};
+        return values;
+    }
+
     @org.python.Method(__doc__ = "")
     public org.python.Object weekday() {
-	double y = ((org.python.types.Int) this.year.__int__()).value;
-	double m = ((org.python.types.Int) this.month.__int__()).value;
-	double d = ((org.python.types.Int) this.day.__int__()).value;
+        double [] values = getValues(this);
+	double y = values[0];
+	double m = values[1];
+	double d = values[2];
 
 	java.util.Date myCalendar = new java.util.GregorianCalendar((int) y, (int) m - 1, (int) d).getTime();
 	java.util.Calendar c = java.util.Calendar.getInstance();
@@ -294,80 +307,64 @@ public class DateTime extends org.python.types.Object {
         return String.valueOf(year*dayInNormalYear + month*dayInMonth + day + leapYearUntil2021);
     }
 
-
     public static org.python.types.Bool __lt__ (DateTime date, DateTime date2) {
-        double year = ((org.python.types.Int) date.year.__int__()).value;
-        double month = ((org.python.types.Int) date.month.__int__()).value;
-        double day = ((org.python.types.Int) date.day.__int__()).value;
-        double hour = ((org.python.types.Int) date.hour.__int__()).value;
-        double minute = ((org.python.types.Int) date.minute.__int__()).value;
-        double second = ((org.python.types.Int) date.second.__int__()).value;
-        double microsecond = ((org.python.types.Int) date.microsecond.__int__()).value;
-        if (year < ((org.python.types.Int) date2.year.__int__()).value) {
+        double [] values = getValues(date);
+        double [] values2 = getValues(date2);
+        if (values[0] < values2[0]) {
             return Bool.TRUE;
-        } else if (month < ((org.python.types.Int) date2.month.__int__()).value) {
+        } else if (values[1] < values2[1]) {
             return Bool.TRUE;
-        } else if (day < ((org.python.types.Int) date2.day.__int__()).value) {
+        } else if (values[2] < values2[2]) {
             return Bool.TRUE;
-        } else if (hour < ((org.python.types.Int) date2.hour.__int__()).value) {
+        } else if (values[3] < values2[3]) {
             return Bool.TRUE;
-        } else if (minute < ((org.python.types.Int) date2.minute.__int__()).value) {
+        } else if (values[4] < values2[4]) {
             return Bool.TRUE;
-        } else if (second < ((org.python.types.Int) date2.second.__int__()).value) {
+        } else if (values[5] < values2[5]) {
             return Bool.TRUE;
-        } else if (microsecond < ((org.python.types.Int) date2.microsecond.__int__()).value) {
+        } else if (values[6] < values2[6]) {
             return Bool.TRUE;
         }
         return Bool.FALSE;
     }
 
     public static org.python.types.Bool __eq__ (DateTime date, DateTime date2) {
-        double year = ((org.python.types.Int) date.year.__int__()).value;
-        double month = ((org.python.types.Int) date.month.__int__()).value;
-        double day = ((org.python.types.Int) date.day.__int__()).value;
-        double hour = ((org.python.types.Int) date.hour.__int__()).value;
-        double minute = ((org.python.types.Int) date.minute.__int__()).value;
-        double second = ((org.python.types.Int) date.second.__int__()).value;
-        double microsecond = ((org.python.types.Int) date.microsecond.__int__()).value;
-        if (year != ((org.python.types.Int) date2.year.__int__()).value) {
+        double [] values = getValues(date);
+        double [] values2 = getValues(date2);
+        if (values[0] != values2[0]) {
             return Bool.FALSE;
-        } else if (month != ((org.python.types.Int) date2.month.__int__()).value) {
+        } else if (values[1] != values2[1]) {
             return Bool.FALSE;
-        } else if (day != ((org.python.types.Int) date2.day.__int__()).value) {
+        } else if (values[2] != values2[2]) {
             return Bool.FALSE;
-        } else if (hour != ((org.python.types.Int) date2.hour.__int__()).value) {
+        } else if (values[3] != values2[3]) {
             return Bool.FALSE;
-        } else if (minute != ((org.python.types.Int) date2.minute.__int__()).value) {
+        } else if (values[4] != values2[4]) {
             return Bool.FALSE;
-        } else if (second != ((org.python.types.Int) date2.second.__int__()).value) {
+        } else if (values[5] != values2[5]) {
             return Bool.FALSE;
-        } else if (microsecond != ((org.python.types.Int) date2.microsecond.__int__()).value) {
+        } else if (values[6] != values2[6]) {
             return Bool.FALSE;
         }
         return Bool.TRUE;
     }
 
     public static org.python.types.Bool __gt__ (DateTime date, DateTime date2) {
-        double year = ((org.python.types.Int) date.year.__int__()).value;
-        double month = ((org.python.types.Int) date.month.__int__()).value;
-        double day = ((org.python.types.Int) date.day.__int__()).value;
-        double hour = ((org.python.types.Int) date.hour.__int__()).value;
-        double minute = ((org.python.types.Int) date.minute.__int__()).value;
-        double second = ((org.python.types.Int) date.second.__int__()).value;
-        double microsecond = ((org.python.types.Int) date.microsecond.__int__()).value;
-        if (year > ((org.python.types.Int) date2.year.__int__()).value) {
+        double [] values = getValues(date);
+        double [] values2 = getValues(date2);
+        if (values[0] > values2[0]) {
             return Bool.TRUE;
-        } else if (month > ((org.python.types.Int) date2.month.__int__()).value) {
+        } else if (values[1] > values2[1]) {
             return Bool.TRUE;
-        } else if (day > ((org.python.types.Int) date2.day.__int__()).value) {
+        } else if (values[2] > values2[2]) {
             return Bool.TRUE;
-        } else if (hour > ((org.python.types.Int) date2.hour.__int__()).value) {
+        } else if (values[3] > values2[3]) {
             return Bool.TRUE;
-        } else if (minute > ((org.python.types.Int) date2.minute.__int__()).value) {
+        } else if (values[4] > values2[4]) {
             return Bool.TRUE;
-        } else if (second > ((org.python.types.Int) date2.second.__int__()).value) {
+        } else if (values[5] > values2[5]) {
             return Bool.TRUE;
-        } else if (microsecond > ((org.python.types.Int) date2.microsecond.__int__()).value) {
+        } else if (values[6] > values2[6]) {
             return Bool.TRUE;
         }
         return Bool.TRUE;
