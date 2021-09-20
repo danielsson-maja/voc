@@ -222,7 +222,7 @@ public class test_DateTime {
     @Test
     public void testToOrdinal () {
         DateTime test = (DateTime) DateTime.today();
-        assertEquals("738052",test.toOrdinal(test));
+        assertEquals("738053",test.toOrdinal(test));
     }
 
 

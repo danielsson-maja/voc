@@ -257,20 +257,18 @@ public class DateTime extends org.python.types.Object {
                         ordinal = ordinal - d;
                         break;
                     }
-
                 }
             }
-
         }
         return String.valueOf(ordinal);
     }
 
 
-    public boolean checkLeap (long year){
+    private boolean checkLeap (long year){
         return year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);
     }
 
-    public int checkDaysInMonth (long month, long year){
+    private int checkDaysInMonth (long month, long year){
         if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12 ){
             return 31;
         }
@@ -283,15 +281,31 @@ public class DateTime extends org.python.types.Object {
         return 28;
     }
 
+    private int checkDaysBeforeMonth(long month, long year){
+        int numberOfDays = 0;
+        for (int d = 1; d<month; d++){
+            numberOfDays += checkDaysInMonth(d, year);
+        }
+        return numberOfDays;
+    }
+
+    private int checkHowManyLeapYear(long year){
+        int countLeapYears = 0;
+        for (int y = 0; y < year; y+=4){
+            if (checkLeap(y)){
+                countLeapYears += 1;
+            }
+        }
+        return countLeapYears-1;
+    }
+
     public String toOrdinal (DateTime date) {
         long year = ((org.python.types.Int) date.year.__int__()).value;
         long month = ((org.python.types.Int) date.month.__int__()).value;
         long day = ((org.python.types.Int) date.day.__int__()).value;
-        long leapYearUntil2021 = 98;
-        long dayInMonth = date.checkDaysInMonth(month,year);
         long dayInNormalYear = 365;
 
-        return String.valueOf(year*dayInNormalYear + month*dayInMonth + day + leapYearUntil2021);
+        return String.valueOf((year-1)*dayInNormalYear + checkDaysBeforeMonth(month,year) + day + checkHowManyLeapYear(year));
     }
 
 
