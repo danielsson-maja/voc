@@ -213,7 +213,7 @@ public class DateTime extends org.python.types.Object {
 	return new DateTime(args, Collections.emptyMap());
     }
 
-    public static double [] getValues (DateTime date) {
+    private static double [] getValues (DateTime date) {
         double year = ((org.python.types.Int) date.year.__int__()).value;
         double month = ((org.python.types.Int) date.month.__int__()).value;
         double day = ((org.python.types.Int) date.day.__int__()).value;
@@ -243,39 +243,44 @@ public class DateTime extends org.python.types.Object {
 
 
     public String fromOrdinal (long ordinal){
-        for (int y = 1; y < 9999; y++) {
-            for (int m = 1; m < 13; m++) {
-                for (int d = 1; d < 32; d++) {
-
-                    if (ordinal - d <= 0) {
-                        return y + "-" + String.format("%02d", m) + "-" + String.format("%02d", d);
-                    }
-                    if (d == 31){
-                        ordinal = ordinal - d;
-                        break;
-                    }
-                    if ( y % 400 == 0 || (y % 4 == 0 && y % 100 != 0) ){
-                        if (m == 2 && d == 29){
-                            ordinal = ordinal - d;
-                            break;
-                        }
-                    } else {
-                        if (m == 2 && d == 28){
-                            ordinal = ordinal - d;
-                            break;
-                        }
-                    }
-
-                    if ((m == 4 || m == 6 || m == 9 || m == 11) && d == 30) {
-                        ordinal = ordinal - d;
-                        break;
-                    }
-                }
-            }
+        int [] months = new int[]{31,28,31,30,31,30,31,31,30,31,30,31};
+        int month = 1;
+        int year = getYear(ordinal);
+        ordinal = ordinal - (((year-1) * 365) + checkHowManyLeapYear(year));
+        if (checkLeap(year)){
+            months[1] = 29;
         }
-        return String.valueOf(ordinal);
+
+        for(int m = 0; m<12; m++){
+            if (ordinal - months[m] <= 0){
+                break;
+            }
+            ordinal -= months[m];
+            month += 1;
+
+        }
+        return year + "-" + String.format("%02d", month) + "-" + String.format("%02d", ordinal);
     }
 
+    private int getYear (long ordinal){
+        int days = 0;
+        int year = 0;
+        for (int i = 1; i < 9999; i++ ){
+            if (checkLeap(i)){
+                days = 366;
+            } else {
+                days = 365;
+            }
+
+            if (ordinal - days <= 0){
+                year = i;
+                break;
+            }
+
+            ordinal -= days;
+        }
+        return year;
+    }
 
     private boolean checkLeap (long year){
         return year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);
