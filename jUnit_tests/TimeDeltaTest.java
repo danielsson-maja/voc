@@ -354,12 +354,11 @@ public class TimeDeltaTest {
     public void test_mult() {
         org.python.Object[] args1 = { org.python.types.Int.getInt(2), org.python.types.Int.getInt(2), org.python.types.Int.getInt(3) };
         TimeDelta td1 = new TimeDelta(args1, Collections.EMPTY_MAP);
-        org.python.Object[] args2 = { org.python.types.Int.getInt(1), org.python.types.Int.getInt(6), org.python.types.Int.getInt(4) };
-        TimeDelta td2 = new TimeDelta(args2, Collections.EMPTY_MAP);
+        org.python.types.Int i = org.python.types.Int.getInt(2);
 
-        org.python.Object[] argsExpected = { org.python.types.Int.getInt(2), org.python.types.Int.getInt(12), org.python.types.Int.getInt(12) };
+        org.python.Object[] argsExpected = { org.python.types.Int.getInt(4), org.python.types.Int.getInt(4), org.python.types.Int.getInt(6) };
         TimeDelta tdExpected = new TimeDelta(argsExpected, Collections.EMPTY_MAP);
-        assertEquals(tdExpected, td1.__mult__(td2));
+        assertEquals(tdExpected, td1.__mult__(i));
     }
 
     @Test
