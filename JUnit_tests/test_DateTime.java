@@ -117,7 +117,27 @@ public class test_DateTime {
         });
     }
 
+    @Test
+    public void test_few_kwargs () {
+        Assertions.assertThrows(TypeError.class, () -> {
+            org.python.types.Int[] args = new org.python.types.Int[]{};
+            java.util.Map<java.lang.String, org.python.Object> kwargs;
+            kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
+            kwargs.put("year", Int.getInt(2021));
+            kwargs.put("month", Int.getInt(9));
+            DateTime test = new DateTime(args, kwargs);
+        });
+    }
 
+    @Test
+    public void test_empty () {
+        Assertions.assertThrows(TypeError.class, () -> {
+            org.python.types.Int[] args = new org.python.types.Int[]{};
+            java.util.Map<java.lang.String, org.python.Object> kwargs;
+            kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
+            DateTime test = new DateTime(args, kwargs);
+        });
+    }
 
     @Test
     public void test_get_args () {
@@ -221,31 +241,44 @@ public class test_DateTime {
 
     @Test
     public void test_from_ordinal () {
-        DateTime test = (DateTime) DateTime.today();
+        org.python.types.Int[] args = new org.python.types.Int[]{Int.getInt(2021), Int.getInt(9), Int.getInt(19)};
+        java.util.Map<java.lang.String, org.python.Object> kwargs;
+        kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
+        DateTime test = new DateTime(args,kwargs);
         long ordinal = 738052;
 //        Equivalent to 2021-09-19 -> 738052
-        assertEquals("2021-09-19", test.fromOrdinal(ordinal));
+        assertEquals("2021-09-19", test.fromordinal(ordinal));
     }
 
     @Test
     public void test_from_ordinal_leap () {
-        DateTime test = (DateTime) DateTime.today();
-        long ordinal = 738052;
-//        Equivalent to 2021-09-19 -> 738052
-        assertEquals("2021-09-19", test.fromOrdinal(ordinal));
-    }
-
-    @Test
-    public void test_to_ordinal_leap () {
-        DateTime test = (DateTime) DateTime.today();
-        assertEquals("738053",test.toOrdinal(test));
+        org.python.types.Int[] args = new org.python.types.Int[]{Int.getInt(2020), Int.getInt(9), Int.getInt(19)};
+        java.util.Map<java.lang.String, org.python.Object> kwargs;
+        kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
+        DateTime test = new DateTime(args,kwargs);
+        long ordinal = 737687;
+        assertEquals("2020-09-19", test.fromordinal(ordinal));
     }
 
     @Test
     public void test_to_ordinal () {
-        DateTime test = (DateTime) DateTime.today();
-        assertEquals("738053",test.toOrdinal(test));
+        org.python.types.Int[] args = new org.python.types.Int[]{Int.getInt(2021), Int.getInt(9), Int.getInt(19)};
+        java.util.Map<java.lang.String, org.python.Object> kwargs;
+        kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
+        DateTime test = new DateTime(args,kwargs);
+        assertEquals("738052",test.toordinal(test));
     }
+
+    @Test
+    public void test_to_ordinal_leap () {
+        org.python.types.Int[] args = new org.python.types.Int[]{Int.getInt(2020), Int.getInt(9), Int.getInt(19)};
+        java.util.Map<java.lang.String, org.python.Object> kwargs;
+        kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
+        DateTime test = new DateTime(args,kwargs);
+        assertEquals("737687",test.toordinal(test));
+    }
+
+
 
 
 

@@ -213,7 +213,7 @@ public class DateTime extends org.python.types.Object {
 	return new DateTime(args, Collections.emptyMap());
     }
 
-    private static double [] getValues (DateTime date) {
+    private static double [] get_values (DateTime date) {
         double year = ((org.python.types.Int) date.year.__int__()).value;
         double month = ((org.python.types.Int) date.month.__int__()).value;
         double day = ((org.python.types.Int) date.day.__int__()).value;
@@ -227,7 +227,7 @@ public class DateTime extends org.python.types.Object {
 
     @org.python.Method(__doc__ = "")
     public org.python.Object weekday() {
-        double [] values = getValues(this);
+        double [] values = get_values(this);
 	double y = values[0];
 	double m = values[1];
 	double d = values[2];
@@ -241,13 +241,12 @@ public class DateTime extends org.python.types.Object {
 
     }
 
-
-    public String fromOrdinal (long ordinal){
+    public String fromordinal (long ordinal){
         int [] months = new int[]{31,28,31,30,31,30,31,31,30,31,30,31};
         int month = 1;
-        int year = getYear(ordinal);
-        ordinal = ordinal - (((year-1) * 365) + checkHowManyLeapYear(year));
-        if (checkLeap(year)){
+        int year = get_year(ordinal);
+        ordinal = ordinal - (((year-1) * 365) + check_how_many_leap_year(year));
+        if (check_leap(year)){
             months[1] = 29;
         }
 
@@ -262,11 +261,11 @@ public class DateTime extends org.python.types.Object {
         return year + "-" + String.format("%02d", month) + "-" + String.format("%02d", ordinal);
     }
 
-    private int getYear (long ordinal){
+    private int get_year (long ordinal){
         int days = 0;
         int year = 0;
         for (int i = 1; i < 9999; i++ ){
-            if (checkLeap(i)){
+            if (check_leap(i)){
                 days = 366;
             } else {
                 days = 365;
@@ -282,53 +281,53 @@ public class DateTime extends org.python.types.Object {
         return year;
     }
 
-    private boolean checkLeap (long year){
+    private boolean check_leap (long year){
         return year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);
     }
 
-    private int checkDaysInMonth (long month, long year){
-        if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12 ){
+    private int check_days_in_month (long month, long year){
+        if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12){
             return 31;
         }
         if (month == 4 || month == 6 || month == 9 || month == 11){
             return 30;
         }
-        if (month == 2 && checkLeap(year)){
+        if (month == 2 && check_leap(year)){
             return 29;
         }
         return 28;
     }
 
-    private int checkDaysBeforeMonth(long month, long year){
+    private int check_days_before_month(long month, long year){
         int numberOfDays = 0;
         for (int d = 1; d<month; d++){
-            numberOfDays += checkDaysInMonth(d, year);
+            numberOfDays += check_days_in_month(d, year);
         }
         return numberOfDays;
     }
 
-    private int checkHowManyLeapYear(long year){
-        int countLeapYears = 0;
+    private int check_how_many_leap_year(long year){
+        int count_leap_years = 0;
         for (int y = 0; y < year; y+=4){
-            if (checkLeap(y)){
-                countLeapYears += 1;
+            if (check_leap(y)){
+                count_leap_years += 1;
             }
         }
-        return countLeapYears-1;
+        return count_leap_years-1;
     }
 
-    public String toOrdinal (DateTime date) {
+    public String toordinal (DateTime date) {
         long year = ((org.python.types.Int) date.year.__int__()).value;
         long month = ((org.python.types.Int) date.month.__int__()).value;
         long day = ((org.python.types.Int) date.day.__int__()).value;
         long dayInNormalYear = 365;
 
-        return String.valueOf((year-1)*dayInNormalYear + checkDaysBeforeMonth(month,year) + day + checkHowManyLeapYear(year));
+        return String.valueOf((year-1)*dayInNormalYear + check_days_before_month(month,year) + day + check_how_many_leap_year(year));
     }
 
     public static org.python.types.Bool __lt__ (DateTime date, DateTime date2) {
-        double [] values = getValues(date);
-        double [] values2 = getValues(date2);
+        double [] values = get_values(date);
+        double [] values2 = get_values(date2);
         if (values[0] > values2[0]) {
             return Bool.FALSE;
         } else if (values[1] > values2[1]) {
@@ -348,8 +347,8 @@ public class DateTime extends org.python.types.Object {
     }
 
     public static org.python.types.Bool __eq__ (DateTime date, DateTime date2) {
-        double [] values = getValues(date);
-        double [] values2 = getValues(date2);
+        double [] values = get_values(date);
+        double [] values2 = get_values(date2);
         if (values[0] != values2[0]) {
             return Bool.FALSE;
         } else if (values[1] != values2[1]) {
@@ -369,8 +368,8 @@ public class DateTime extends org.python.types.Object {
     }
 
     public static org.python.types.Bool __gt__ (DateTime date, DateTime date2) {
-        double [] values = getValues(date);
-        double [] values2 = getValues(date2);
+        double [] values = get_values(date);
+        double [] values2 = get_values(date2);
         if (values[0] < values2[0]) {
             return Bool.FALSE;
         } else if (values[1] < values2[1]) {
