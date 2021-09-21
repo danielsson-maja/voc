@@ -246,7 +246,6 @@ public class test_DateTime {
         kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
         DateTime test = new DateTime(args,kwargs);
         long ordinal = 738052;
-//        Equivalent to 2021-09-19 -> 738052
         assertEquals("2021-09-19", test.fromordinal(ordinal));
     }
 
