@@ -329,22 +329,22 @@ public class DateTime extends org.python.types.Object {
     public static org.python.types.Bool __lt__ (DateTime date, DateTime date2) {
         double [] values = getValues(date);
         double [] values2 = getValues(date2);
-        if (values[0] < values2[0]) {
-            return Bool.TRUE;
-        } else if (values[1] < values2[1]) {
-            return Bool.TRUE;
-        } else if (values[2] < values2[2]) {
-            return Bool.TRUE;
-        } else if (values[3] < values2[3]) {
-            return Bool.TRUE;
-        } else if (values[4] < values2[4]) {
-            return Bool.TRUE;
-        } else if (values[5] < values2[5]) {
-            return Bool.TRUE;
-        } else if (values[6] < values2[6]) {
-            return Bool.TRUE;
+        if (values[0] > values2[0]) {
+            return Bool.FALSE;
+        } else if (values[1] > values2[1]) {
+            return Bool.FALSE;
+        } else if (values[2] > values2[2]) {
+            return Bool.FALSE;
+        } else if (values[3] > values2[3]) {
+            return Bool.FALSE;
+        } else if (values[4] > values2[4]) {
+            return Bool.FALSE;
+        } else if (values[5] > values2[5]) {
+            return Bool.FALSE;
+        } else if (values[6] > values2[6]) {
+            return Bool.FALSE;
         }
-        return Bool.FALSE;
+        return Bool.TRUE;
     }
 
     public static org.python.types.Bool __eq__ (DateTime date, DateTime date2) {
@@ -371,20 +371,20 @@ public class DateTime extends org.python.types.Object {
     public static org.python.types.Bool __gt__ (DateTime date, DateTime date2) {
         double [] values = getValues(date);
         double [] values2 = getValues(date2);
-        if (values[0] > values2[0]) {
-            return Bool.TRUE;
-        } else if (values[1] > values2[1]) {
-            return Bool.TRUE;
-        } else if (values[2] > values2[2]) {
-            return Bool.TRUE;
-        } else if (values[3] > values2[3]) {
-            return Bool.TRUE;
-        } else if (values[4] > values2[4]) {
-            return Bool.TRUE;
-        } else if (values[5] > values2[5]) {
-            return Bool.TRUE;
-        } else if (values[6] > values2[6]) {
-            return Bool.TRUE;
+        if (values[0] < values2[0]) {
+            return Bool.FALSE;
+        } else if (values[1] < values2[1]) {
+            return Bool.FALSE;
+        } else if (values[2] < values2[2]) {
+            return Bool.FALSE;
+        } else if (values[3] < values2[3]) {
+            return Bool.FALSE;
+        } else if (values[4] < values2[4]) {
+            return Bool.FALSE;
+        } else if (values[5] < values2[5]) {
+            return Bool.FALSE;
+        } else if (values[6] < values2[6]) {
+            return Bool.FALSE;
         }
         return Bool.TRUE;
     }
