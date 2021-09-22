@@ -257,43 +257,43 @@ public class DateTests {
 
     @Test
     public void test_equal_true() {
-        org.python.Object[] args1 = {getInt(1), getInt(2), getInt(3)};
+        org.python.Object[] args1 = {getInt(2020), getInt(2), getInt(3)};
         Date td1 = new Date(args1, Collections.EMPTY_MAP);
-        org.python.Object[] args2 = {getInt(1), getInt(2), getInt(3)};
+        org.python.Object[] args2 = {getInt(2020), getInt(2), getInt(3)};
         Date td2 = new Date(args2, Collections.EMPTY_MAP);
         assertEquals(org.python.types.Bool.TRUE, td1.__eq__(td2));
     }
 
     @Test
     public void test_equal_false() {
-        org.python.Object[] args1 = {getInt(1), getInt(6), getInt(3)};
+        org.python.Object[] args1 = {getInt(2020), getInt(6), getInt(3)};
         Date td1 = new Date(args1, Collections.EMPTY_MAP);
-        org.python.Object[] args2 = {getInt(1), getInt(2), getInt(3)};
+        org.python.Object[] args2 = {getInt(2020), getInt(2), getInt(3)};
         Date td2 = new Date(args2, Collections.EMPTY_MAP);
         assertEquals(org.python.types.Bool.FALSE, td1.__eq__(td2));
     }
 
     @Test
     public void test_equal_int() {
-        org.python.Object[] args1 = {getInt(1), getInt(6), getInt(3)};
+        org.python.Object[] args1 = {getInt(2020), getInt(6), getInt(3)};
         Date td1 = new Date(args1, Collections.EMPTY_MAP);
         assertEquals(org.python.types.Bool.FALSE, td1.__eq__(getInt(5)));
     }
 
     @Test
     public void test_gt_true() {
-        org.python.Object[] args1 = {getInt(2), getInt(6), getInt(3)};
+        org.python.Object[] args1 = {getInt(2020), getInt(6), getInt(3)};
         Date td1 = new Date(args1, Collections.EMPTY_MAP);
-        org.python.Object[] args2 = {getInt(1), getInt(6), getInt(3)};
+        org.python.Object[] args2 = {getInt(2020), getInt(6), getInt(3)};
         Date td2 = new Date(args2, Collections.EMPTY_MAP);
         assertEquals(org.python.types.Bool.TRUE, td1.__gt__(td2));
     }
 
     @Test
     public void test_gt_false() {
-        org.python.Object[] args1 = {getInt(1), getInt(6), getInt(3)};
+        org.python.Object[] args1 = {getInt(2020), getInt(6), getInt(3)};
         Date td1 = new Date(args1, Collections.EMPTY_MAP);
-        org.python.Object[] args2 = {getInt(2), getInt(6), getInt(3)};
+        org.python.Object[] args2 = {getInt(2020), getInt(6), getInt(3)};
         Date td2 = new Date(args2, Collections.EMPTY_MAP);
         assertEquals(org.python.types.Bool.FALSE, td1.__gt__(td2));
     }
@@ -301,7 +301,7 @@ public class DateTests {
     @Test
     public void test_gt_int() {
         assertThrows(org.python.exceptions.TypeError.class, () -> {
-            org.python.Object[] args1 = {getInt(1), getInt(6), getInt(3)};
+            org.python.Object[] args1 = {getInt(2020), getInt(6), getInt(3)};
             Date td1 = new Date(args1, Collections.EMPTY_MAP);
             td1.__gt__(getInt(3));
         });
@@ -328,7 +328,7 @@ public class DateTests {
     @Test
     public void test_lt_int() {
         assertThrows(org.python.exceptions.TypeError.class, () -> {
-            org.python.Object[] args1 = {getInt(1), getInt(6), getInt(3)};
+            org.python.Object[] args1 = {getInt(2020), getInt(6), getInt(3)};
             Date td1 = new Date(args1, Collections.EMPTY_MAP);
             td1.__lt__(getInt(3));
         });
@@ -346,7 +346,7 @@ public class DateTests {
     @Test
     public void test_ge_int() {
         assertThrows(org.python.exceptions.TypeError.class, () -> {
-            org.python.Object[] args1 = {getInt(1), getInt(6), getInt(3)};
+            org.python.Object[] args1 = {getInt(2020), getInt(6), getInt(3)};
             Date td1 = new Date(args1, Collections.EMPTY_MAP);
             td1.__ge__(getInt(3));
         });
