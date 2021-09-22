@@ -1,6 +1,10 @@
 package org.python.stdlib.datetime;
 
+import org.python.types.Bool;
+
 import java.util.Collections;
+
+import static java.lang.Integer.parseInt;
 
 public class Date extends org.python.types.Object {
     @org.python.Attribute
@@ -43,8 +47,8 @@ public class Date extends org.python.types.Object {
                 this.day = args[2];
             }
             if ((this.year instanceof org.python.types.Int) && (this.month instanceof org.python.types.Int) &&
-            (this.day instanceof org.python.types.Int)){
-                if (1 <= ((org.python.types.Int) this.year).value && ((org.python.types.Int) this.year).value <= 999) {
+                (this.day instanceof org.python.types.Int)) {
+                if (1 <= ((org.python.types.Int) this.year).value && ((org.python.types.Int) this.year).value <= 9999) {
                     if (1d <= ((org.python.types.Int) this.month).value && ((org.python.types.Int) this.month).value <= 12d) {
                         if (1d <= ((org.python.types.Int) this.day).value && ((org.python.types.Int) this.day).value <= 31d) {
                         } else {
@@ -56,7 +60,7 @@ public class Date extends org.python.types.Object {
                 } else {
                     throw new org.python.exceptions.ValueError("year " + this.year + " is out of range");
                 }
-            } else{
+            } else {
                 if (!(this.year instanceof org.python.types.Int)) {
                     throw new org.python.exceptions.TypeError("integer argument expected, got " + this.year.typeName());
                 }
@@ -67,7 +71,8 @@ public class Date extends org.python.types.Object {
                     throw new org.python.exceptions.TypeError("integer argument expected, got " + this.day.typeName());
                 }
             }
-        } if (args.length + kwargs.size() == 2) {
+        }
+        if (args.length + kwargs.size() == 2) {
             if (args.length == 2) {
                 this.year = args[0];
                 this.month = args[1];
@@ -215,5 +220,102 @@ public class Date extends org.python.types.Object {
         int day = c.get(java.util.Calendar.DAY_OF_WEEK);
         int[] convertToPython = {6, 0, 1, 2, 3, 4, 5};
         return org.python.types.Int.getInt(convertToPython[day - 1]);
+    }
+
+    @org.python.Method(
+        __doc__ = "Return self>other.",
+        args = {"other"}
+    )
+    public Bool __gt__(org.python.Object other) {
+        if (other instanceof Date) {
+            Date otherObject = (org.python.stdlib.datetime.Date) other;
+            if (parseInt(this.year.toString()) > parseInt(otherObject.year.toString())) {
+                return Bool.TRUE;
+            } else {
+                return Bool.FALSE;
+            }
+        } else {
+            throw new org.python.exceptions.TypeError("'>' not supported between instances of 'datetime.timedelta' and '" + other.typeName() + " '");
+        }
+    }
+
+    @org.python.Method(
+        __doc__ = "Return self<=other.",
+        args = {"other"}
+    )
+    public Bool __le__(org.python.Object other) {
+        if (other instanceof Date) {
+            Date otherObject = (org.python.stdlib.datetime.Date) other;
+            if (parseInt(this.year.toString()) <= parseInt(otherObject.year.toString())) {
+                return Bool.TRUE;
+            } else if (parseInt(this.month.toString()) <= parseInt(otherObject.month.toString())) {
+                return Bool.TRUE;
+            } else if (parseInt(this.day.toString()) <= parseInt(otherObject.day.toString())) {
+                return Bool.TRUE;
+            } else {
+                return Bool.FALSE;
+            }
+        } else {
+            throw new org.python.exceptions.TypeError("'<=' not supported between instances of 'datetime.date' and '" + other.typeName() + " '");
+        }
+    }
+
+    @org.python.Method(
+        __doc__ = "Return self<other.",
+        args = {"other"}
+    )
+    public Bool __lt__(org.python.Object other) {
+        if (other instanceof Date) {
+            Date otherObject = (org.python.stdlib.datetime.Date) other;
+            if (parseInt(this.year.toString()) < parseInt(otherObject.year.toString())) {
+                return Bool.TRUE;
+            } else if (parseInt(this.month.toString()) < parseInt(otherObject.month.toString())) {
+                return Bool.TRUE;
+            } else if (parseInt(this.day.toString()) < parseInt(otherObject.day.toString())) {
+                return Bool.TRUE;
+            } else {
+                return Bool.FALSE;
+            }
+        } else {
+            throw new org.python.exceptions.TypeError("'<' not supported between instances of 'datetime.timedelta' and '" + other.typeName() + " '");
+        }
+    }
+
+    @org.python.Method(
+        __doc__ = "Return self>=other.",
+        args = {"other"}
+    )
+    public Bool __ge__(org.python.Object other) {
+        if (other instanceof Date) {
+            Date otherObject = (org.python.stdlib.datetime.Date) other;
+            if (parseInt(this.year.toString()) >= parseInt(otherObject.year.toString())) {
+                return Bool.TRUE;
+            } else if (parseInt(this.month.toString()) >= parseInt(otherObject.month.toString())) {
+                return Bool.TRUE;
+            } else if (parseInt(this.day.toString()) >= parseInt(otherObject.day.toString())) {
+                return Bool.TRUE;
+            } else {
+                return Bool.FALSE;
+            }
+        } else {
+            throw new org.python.exceptions.TypeError("'>=' not supported between instances of 'datetime.timedelta' and '" + other.typeName() + " '");
+        }
+    }
+
+    @org.python.Method(__doc__ = "Returns true if other is a copy of this", args = {"other"})
+    public Bool __eq__(org.python.Object other) {
+        if (other instanceof Date) {
+            Date otherObject = (org.python.stdlib.datetime.Date) other;
+            Bool yearEquals = (Bool) this.__year__().__eq__(otherObject.__year__());
+            Bool monthEquals = (Bool) this.__month__().__eq__(otherObject.__month__());
+            Bool dayEquals = (Bool) this.__day__().__eq__(otherObject.__day__());
+            if (yearEquals.value && monthEquals.value && dayEquals.value) {
+                return Bool.TRUE;
+            } else {
+                return Bool.FALSE;
+            }
+        } else {
+            return Bool.FALSE;
+        }
     }
 }
