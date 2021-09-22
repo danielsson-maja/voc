@@ -284,7 +284,7 @@ public class DateTests {
     public void test_gt_true() {
         org.python.Object[] args1 = {getInt(2020), getInt(6), getInt(3)};
         Date td1 = new Date(args1, Collections.EMPTY_MAP);
-        org.python.Object[] args2 = {getInt(2020), getInt(6), getInt(3)};
+        org.python.Object[] args2 = {getInt(2019), getInt(6), getInt(3)};
         Date td2 = new Date(args2, Collections.EMPTY_MAP);
         assertEquals(org.python.types.Bool.TRUE, td1.__gt__(td2));
     }
