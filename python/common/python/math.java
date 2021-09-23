@@ -54,7 +54,7 @@ public class math extends org.python.types.Module {
     public static org.python.Object floor(org.python.Object value) {
         org.python.Object result;
         if (value!=null) {
-            result = floor(value);
+            result = math.floor(value);
         } else {
             result = org.python.types.Int.getInt(1);
         }
