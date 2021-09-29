@@ -38,5 +38,9 @@ public class OrderedDictWorkload {
 
     }
 
+    private static void workload2_move_to_end() {
+
+    }
+
 
 }
