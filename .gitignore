@@ -4,6 +4,7 @@
 *.egg-info
 dist
 build
+out
 local
 local.properties
 distribute-*
@@ -22,3 +23,4 @@ tests/tmp*
 .DS_Store
 .idea/
 .vscode
+
