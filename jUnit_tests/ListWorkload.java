@@ -6,11 +6,11 @@ public class ListWorkload {
 
     private static void setUpLists() {
         Random rand = new Random();
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 5000; i++) {
             list1.insert(org.python.types.Int.getInt(i), org.python.types.Int.getInt(i + rand.nextInt(100)));
         }
 
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 5000; i++) {
             list2.insert(org.python.types.Int.getInt(i), org.python.types.Int.getInt(i + rand.nextInt(100)));
         }
     }
@@ -21,7 +21,7 @@ public class ListWorkload {
         for (int i = 0; i < list2Lenght.value; i++) {
             list.__mul__(list2.__getitem__(org.python.types.Int.getInt(i)));
         }*/
-
+        /*
         org.python.types.List resultList = new org.python.types.List();
         org.python.types.Int list1Lenght = list1.__len__();
         for (int i = 0; i < list1Lenght.value; i++) {
@@ -32,7 +32,7 @@ public class ListWorkload {
             org.python.types.Int list2Int = (org.python.types.Int) list2Obj;
 
             resultList.insert(org.python.types.Int.getInt(i), org.python.types.Int.getInt(list1Int.value * list2Int.value));
-        }
+        }*/
 
         list1.sort(null, null);
         list2.sort(null, null);

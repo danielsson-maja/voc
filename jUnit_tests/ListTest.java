@@ -1355,7 +1355,7 @@ public class ListTest {
     public void testSortInt() {
 	org.python.types.List java_list = py_list_from_java_ints(5, 4, 47, 62, -5);
 	java_list.sort(null, null);
-	assertEquals(java_list, py_list_from_java_ints(-5, 4, 5, 47, 62));
+	assertEquals(py_list_from_java_ints(-5, 4, 5, 47, 62), java_list);
     }
 
     @Test
