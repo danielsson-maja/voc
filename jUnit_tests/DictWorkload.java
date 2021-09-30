@@ -1,4 +1,4 @@
-package profiling;
+package voc;
 
 import org.python.exceptions.AttributeError;
 import org.python.exceptions.KeyError;
