@@ -11,9 +11,12 @@ package org.python.stdlib.collections;
 
 public class OrderedDict extends org.python.types.Dict {
 
+    java.util.List<org.python.Object> item_pair;
+
     private OrderedDict() {
         super();
         this.value = new java.util.LinkedHashMap<org.python.Object, org.python.Object>();
+        this.item_pair = new java.util.ArrayList<org.python.Object>();
     }
 
     @org.python.Method(
@@ -21,6 +24,7 @@ public class OrderedDict extends org.python.types.Dict {
             default_args = {"iterable"}
     )
     public OrderedDict(org.python.Object[] args, java.util.Map<java.lang.String, org.python.Object> kwargs) {
+        this.item_pair = new java.util.ArrayList<org.python.Object>();
         if (args[0] == null) {
             this.value = new java.util.LinkedHashMap<>();
         } else {
@@ -215,11 +219,11 @@ public class OrderedDict extends org.python.types.Dict {
 
         org.python.Object value = this.value.remove(key);
 
-        java.util.List<org.python.Object> item_pair = new java.util.ArrayList<org.python.Object>();
-        item_pair.add(key);
-        item_pair.add(value);
-        return new org.python.types.Tuple(item_pair);
-
+        this.item_pair.clear();
+        this.item_pair.add(key);
+        this.item_pair.add(value);
+        return new org.python.types.Tuple(this.item_pair);
+        
     }
 
     @org.python.Method(

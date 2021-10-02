@@ -22,7 +22,7 @@ public class OrderedDictWorkload {
 
         OrderedDict od = createOrderedDict();
 
-        for (int i =0; i <60000; i++) {
+        for (int i =0; i <20000; i++) {
             updateExample();
             InsertExample();
             move_to_endExample();
@@ -192,11 +192,17 @@ public class OrderedDictWorkload {
         //kwargs.remove("One");
         OrderedDict od1 = new OrderedDict(args, kwargs);
         //System.out.println(od1.__str__().toJava());
-        od1.popitem();
+        Object t1 = od1.popitem();
+        //System.out.println(t1);
         //System.out.println(od1.__str__().toJava());
-        od1.popitem();
+        Object t2 = od1.popitem();
+        //System.out.println(t1);
+        //System.out.println(t2);
         //System.out.println(od1.__str__().toJava());
-        od1.popitem();
+        Object t3 = od1.popitem();
+        //System.out.println(t1);
+        //System.out.println(t2);
+        //System.out.println(t3);
         //System.out.println(od1.__str__().toJava());
     }
 
@@ -208,7 +214,7 @@ public class OrderedDictWorkload {
         }
         OrderedDict od1 = new OrderedDict(args, kwargs);
 
-        for (int i=0; i<0; i++) {
+        for (int i=0; i<20; i++) {
             od1.popitem();
         }
     }
@@ -221,7 +227,7 @@ public class OrderedDictWorkload {
         }
         OrderedDict od1 = new OrderedDict(args, kwargs);
 
-        for (int i=0; i<0; i++) {
+        for (int i=0; i<50; i++) {
             od1.popitem();
         }
     }
