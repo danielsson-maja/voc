@@ -1,4 +1,4 @@
-package voc;
+//package voc;
 
 import org.junit.Test;
 import org.python.exceptions.AttributeError;
