@@ -26,7 +26,9 @@ public class OrderedDictWorkload {
             updateExample();
             InsertExample();
             move_to_endExample();
-            DeleteExample();
+            DeleteExampleSmallDict();
+            DeleteExampleMediumDict();
+            DeleteExampleLargeDict();
             od.__reversed__();
             od.keys();
             od.values();
@@ -180,16 +182,48 @@ public class OrderedDictWorkload {
         return dict;
     }
 
-    private static void DeleteExample() {
+    private static void DeleteExampleSmallDict() {
         org.python.Object[] args = { null };
         Map<String, org.python.Object> kwargs = new HashMap<String, org.python.Object>();
         kwargs.put("Three", Int.getInt(3));
         kwargs.put("Two", Int.getInt(2));
         kwargs.put("One", Int.getInt(1));
 
-        kwargs.remove("One");
+        //kwargs.remove("One");
         OrderedDict od1 = new OrderedDict(args, kwargs);
         //System.out.println(od1.__str__().toJava());
+        od1.popitem();
+        //System.out.println(od1.__str__().toJava());
+        od1.popitem();
+        //System.out.println(od1.__str__().toJava());
+        od1.popitem();
+        //System.out.println(od1.__str__().toJava());
+    }
+
+    private static void DeleteExampleMediumDict() {
+        org.python.Object[] args = { null };
+        Map<String, org.python.Object> kwargs = new HashMap<String, org.python.Object>();
+        for (int i=0; i< 20; i++) {
+            kwargs.put(i+"", Int.getInt(i));
+        }
+        OrderedDict od1 = new OrderedDict(args, kwargs);
+
+        for (int i=0; i<0; i++) {
+            od1.popitem();
+        }
+    }
+
+    private static void DeleteExampleLargeDict() {
+        org.python.Object[] args = { null };
+        Map<String, org.python.Object> kwargs = new HashMap<String, org.python.Object>();
+        for (int i=0; i< 50; i++) {
+            kwargs.put(i+"", Int.getInt(i));
+        }
+        OrderedDict od1 = new OrderedDict(args, kwargs);
+
+        for (int i=0; i<0; i++) {
+            od1.popitem();
+        }
     }
 
     private static void move_to_endExample() {
