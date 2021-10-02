@@ -23,9 +23,9 @@ public class OrderedDictWorkload {
         OrderedDict od = createOrderedDict();
 
         for (int i =0; i <60000; i++) {
-            workload1_update();
+            updateExample();
             InsertExample();
-            workload2_move_to_end();
+            move_to_endExample();
             DeleteExample();
             od.__reversed__();
             od.keys();
@@ -35,7 +35,7 @@ public class OrderedDictWorkload {
 
     }
 
-    private static void workload1_update() {
+    private static void updateExample() {
         List tuple_list = new List();
 
         ArrayList<Object> tuple = new ArrayList<>(2);
@@ -192,7 +192,7 @@ public class OrderedDictWorkload {
         //System.out.println(od1.__str__().toJava());
     }
 
-    private static void workload2_move_to_end() {
+    private static void move_to_endExample() {
         List tuple_list = new List();
 
         ArrayList<Object> tuple = new ArrayList<>(2);
