@@ -809,7 +809,6 @@ public class List extends org.python.types.Object {
         return org.python.types.NoneType.NONE;
     }
 
-    
     /*
     @org.python.Method(
             __doc__ = "L.sort(key=None, reverse=False) -> None -- stable sort *IN PLACE*",
@@ -841,7 +840,6 @@ public class List extends org.python.types.Object {
     }
     */
 
-    /*
     @org.python.Method(
         __doc__ = "L.sort() -> None -- stable sort *IN PLACE*",
         args = {}
@@ -864,52 +862,8 @@ public class List extends org.python.types.Object {
         }
         return org.python.types.NoneType.NONE;
     }
-         */
 
 
-    @org.python.Method(
-        __doc__ = "L.sort() -> None -- stable sort *IN PLACE*",
-        args = {}
-    )
-    public org.python.Object sort(final org.python.Object key, org.python.Object reverse) {
-        org.python.types.Int listLen = this.__len__();
-        for (long i = listLen.value / 2 - 1; i >= 0; i--) {
-            heapify(this, listLen.value, i);
-        }
-
-        for (long i = listLen.value - 1; i > 0; i--) {
-            long temp = ((Int)this.__getitem__(Int.getInt(0))).value;
-            this.__setitem__(org.python.types.Int.getInt(0), org.python.types.Int.getInt(i));
-            this.__setitem__(org.python.types.Int.getInt(i), org.python.types.Int.getInt(temp));
-            heapify(this,listLen.value,0);
-        }
-        return org.python.types.NoneType.NONE;
-    }
-
-    private void heapify(org.python.types.List list, long len, long i) {
-        long largest = i;
-        long l = 2 * i + 1;
-        long r = 2 * i + 2;
-        long swap = 0;
-        //long list_l = ((org.python.types.Int)list.__getitem__(org.python.types.Int.getInt(l))).value;
-        //long list_r = ((org.python.types.Int)list.__getitem__(org.python.types.Int.getInt(r))).value;
-        //long list_largest = ((org.python.types.Int)list.__getitem__(org.python.types.Int.getInt(largest))).value;
-        if (l < len && ((org.python.types.Int)list.__getitem__(org.python.types.Int.getInt(l))).value > ((org.python.types.Int)list.__getitem__(org.python.types.Int.getInt(largest))).value) {
-            largest = l;
-        }
-
-        if (r < len && ((org.python.types.Int)list.__getitem__(org.python.types.Int.getInt(r))).value > ((org.python.types.Int)list.__getitem__(org.python.types.Int.getInt(largest))).value) {
-            largest = r;
-        }
-
-        if (largest != i) {
-            swap = ((org.python.types.Int)list.__getitem__(org.python.types.Int.getInt(i))).value;
-            list.__setitem__(org.python.types.Int.getInt(i), org.python.types.Int.getInt(((org.python.types.Int)list.__getitem__(org.python.types.Int.getInt(largest))).value));
-            list.__setitem__(org.python.types.Int.getInt(largest), org.python.types.Int.getInt(swap));
-
-            heapify(list,len, largest);
-        }
-    }
 
     @org.python.Method(
             __doc__ = ""
