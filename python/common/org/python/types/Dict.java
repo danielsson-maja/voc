@@ -57,9 +57,10 @@ public class Dict extends org.python.types.Object {
                     while (true) {
                         org.python.Object next = iterator.__next__();
                         java.util.List<org.python.Object> data;
-                        if (next instanceof org.python.types.Tuple) {
-                            data = ((org.python.types.Tuple) next).value;
-                        } else if (next instanceof org.python.types.List) {
+                        //if (next instanceof org.python.types.Tuple) {
+                          //  data = ((org.python.types.Tuple) next).value;
+                        //} else
+                        if (next instanceof org.python.types.List) {
                             data = ((org.python.types.List) next).value;
                         } else if (next instanceof org.python.types.Str) {
                             org.python.types.Str str = ((org.python.types.Str) next);
@@ -394,7 +395,7 @@ public class Dict extends org.python.types.Object {
         java.util.List<org.python.Object> item_pair = new java.util.ArrayList<org.python.Object>();
         item_pair.add(key);
         item_pair.add(value);
-        return new org.python.types.Tuple(item_pair);
+        return new org.python.types.List(item_pair);
     }
 
     @org.python.Method(
@@ -455,8 +456,8 @@ public class Dict extends org.python.types.Object {
                     org.python.Object next = iterator.__next__();
                     if (next instanceof org.python.types.List) {
                         pair = ((org.python.types.List) next).value;
-                    } else if (next instanceof org.python.types.Tuple) {
-                        pair = ((org.python.types.Tuple) next).value;
+                    //} else if (next instanceof org.python.types.Tuple) {
+                      //  pair = ((org.python.types.Tuple) next).value;
                     } else if (next instanceof org.python.types.Str) {
                         throw new org.python.exceptions.ValueError(
                         "dictionary update sequence element #" + size + " has length 1; 2 is required");
