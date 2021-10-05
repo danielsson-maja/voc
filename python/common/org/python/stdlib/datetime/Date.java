@@ -1,10 +1,16 @@
 package org.python.stdlib.datetime;
 
+import org.python.Object;
 import org.python.types.Bool;
+import org.python.types.Str;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 
 import static java.lang.Integer.parseInt;
+import static org.python.types.Int.getInt;
 
 public class Date extends org.python.types.Object {
     @org.python.Attribute
@@ -317,5 +323,27 @@ public class Date extends org.python.types.Object {
         } else {
             return Bool.FALSE;
         }
+    }
+
+    @org.python.Method(
+        __doc__ = "Return a date object from a string",
+        args = {"other"})
+    public Timestamp __fromisoformat__(Object other) {
+        String toString = other.toString();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            return new Timestamp(format.parse(toString).getTime());
+        } catch (ParseException e) {
+            return null;
+        }
+    }
+
+    public static void main(String[] args) {
+        org.python.Object[] args1 = {getInt(2001), getInt(05), getInt(02)};
+        Date date = new Date(args1, Collections.EMPTY_MAP);
+        String str = "2001-05-02";
+        System.out.println(date);
+        System.out.println(str);
+        System.out.println(date.__fromisoformat__(date));
     }
 }

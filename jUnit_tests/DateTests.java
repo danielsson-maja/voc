@@ -361,5 +361,15 @@ public class DateTests {
         assertEquals(org.python.types.Bool.TRUE, td1.__le__(td2));
     }
 
+    @Test
+    public void test_fromisoformat() {
+        org.python.Object[] args = {getInt(2001), getInt(05), getInt(02)};
+        try {
+            Date date = new Date(args, Collections.EMPTY_MAP);
+            date.__fromisoformat__(date);
+        } catch (BaseException e) {
+            assertEquals("incorrect conversion", e.getMessage());
+        }
+    }
 
 }
