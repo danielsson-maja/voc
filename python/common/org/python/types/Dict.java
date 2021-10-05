@@ -1,5 +1,8 @@
 package org.python.types;
 
+import java.util.Arrays;
+import java.util.HashMap;
+
 public class Dict extends org.python.types.Object {
     public java.util.Map<org.python.Object, org.python.Object> value;
 
@@ -255,7 +258,7 @@ public class Dict extends org.python.types.Object {
             __doc__ = "Set self[key] to value.",
             args = {"item", "value"}
     )
-    public void __setitem__(org.python.Object item, org.python.Object value) {
+    public void __setitem__(org.python.types.Object item, org.python.types.Object value) {
         if (item.isHashable()) {
             this.value.put(item, value);
         } else {
@@ -268,7 +271,7 @@ public class Dict extends org.python.types.Object {
             __doc__ = "Delete self[key].",
             args = {"item"}
     )
-    public void __delitem__(org.python.Object item) {
+    public void __delitem__(org.python.types.Object item) {
         org.python.Object value = this.value.remove(item);
         if (value == null) {
             throw new org.python.exceptions.KeyError(item);
@@ -382,7 +385,7 @@ public class Dict extends org.python.types.Object {
     }
 
     @org.python.Method(
-            __doc__ = "D.popitem() -> (k, v), remove and return some (key, value) pair as a\n2-tuple; but raise KeyError if D is empty."
+            __doc__ = "D.popitem() -> (k, v), remove and return some (key, value) pair as a List; but raise KeyError if D is empty."
     )
     public org.python.Object popitem() {
         if (this.value.size() == 0) {

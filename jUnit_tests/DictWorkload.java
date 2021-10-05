@@ -42,22 +42,31 @@ public class DictWorkload {
     }
 
     public static void main(String[] args) {
-        long startTime = System.nanoTime();
+
+        long start = System.currentTimeMillis();
         DictWorkload dictWorkload = new DictWorkload();
         List<Post> posts = dictWorkload.readPost();
-        Dict dict = new Dict();
-        for (int i = 0; i < posts.size(); i++) {
-            dict.__setitem__(new Str(posts.get(i).getId()), new Str(posts.get(i).getTitle()));
-        }
-        Dict dict1 = (Dict) dict.copy();
-        for (int i = 0; i < 1500; i++) {
-            dict1.popitem();
+        List<Dict> dicts = new ArrayList<>();
+        for (int i = 0; i < 800; i++) {
+            Dict dict = new Dict();
+            for (int j = 0; j < posts.size(); j++) {
+                dict.__setitem__(new Str(posts.get(j).getId()), new Str(posts.get(j).getTitle()));
+            }
+            dicts.add(dict);
         }
 
+        for (int i = 0; i < 400; i++) {
+            for (int j = 0; j < 1000; j++) {
+                dicts.get(i).popitem();
+            }
+        }
+
+
         //Create List of Dict
-        List<Map<org.python.Object, org.python.Object>> dicts = new ArrayList<>();
+        /*
+        List<Map<org.python.Object, org.python.Object>> dicts2 = new ArrayList<>();
         List<Object> objectList = posts.stream()
-            .map(post -> dicts.stream()
+            .map(post -> dicts2.stream()
                 .map(dict2 -> dict2.put(new Str(post.getId()), new Str(post.getTitle())))
                 .collect(toList()))
             .flatMap(Collection::stream)
@@ -70,19 +79,26 @@ public class DictWorkload {
             })
             .collect(toList());
 
-        Dict dict2 = (Dict) Dict.fromkeys(dict1, new Str("New book"));
-        dict2.update(dict, dict1);
-        for (int i = 0; i < 1000; i++) {
-            Object popitem = dict2.popitem();
-            Random random = new Random();
-            int newval = random.nextInt();
-            dict1.__setitem__(popitem.__getitem__(Int.getInt(0)), new Str("" + newval));
+         */
+
+        for (int i = 400; i < 800; i++) {
+            dicts.get(i).update(dicts.get(i-1),dicts.get(i-2));
         }
-        for (int i = 0; i < posts.size(); i++) {
-            dict2.__setitem__(new Str(posts.get(i).getId()), new Str("old book"));
+
+        for (int i = 0; i < 400; i++) {
+            Dict dict = new Dict();
+            for (int j = 0; j < 1000; j++) {
+                Object popitem = dicts.get(i + 400).popitem();
+                Random random = new Random();
+                int newval = random.nextInt();
+                String title = popitem.__getitem__(Int.getInt(0)).toString();
+                dict.__setitem__(new Str(title), new Str("" + newval));
+            }
+            dicts.set(i,dict);
         }
-        System.out.println("dict length " + dict.__len__().toString());
-        long endTime = System.nanoTime() - startTime;
-        System.out.println("Runtime: " + endTime);
+
+        long end = System.currentTimeMillis();
+        float sec = (end - start) / 1000F;
+        System.out.println(sec + " seconds");
     }
 }
