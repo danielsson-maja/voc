@@ -62,25 +62,6 @@ public class DictWorkload {
         }
 
 
-        //Create List of Dict
-        /*
-        List<Map<org.python.Object, org.python.Object>> dicts2 = new ArrayList<>();
-        List<Object> objectList = posts.stream()
-            .map(post -> dicts2.stream()
-                .map(dict2 -> dict2.put(new Str(post.getId()), new Str(post.getTitle())))
-                .collect(toList()))
-            .flatMap(Collection::stream)
-            .collect(toList());
-        List<Dict> dictList = objectList.stream()
-            .map(object -> {
-                Dict dict2 = new Dict();
-                dict2.__setitem__(object.__getitem__(Int.getInt(0)), new Str(""));
-                return dict2;
-            })
-            .collect(toList());
-
-         */
-
         for (int i = 400; i < 800; i++) {
             dicts.get(i).update(dicts.get(i-1),dicts.get(i-2));
         }
