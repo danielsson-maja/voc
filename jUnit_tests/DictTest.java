@@ -107,13 +107,13 @@ public class DictTest {
 	java.util.List<org.python.Object> tempList = new ArrayList<>();
 	tempList.add(new Str("a"));
 	tempList.add(Int.getInt(1));
-	Tuple tuple1 = new Tuple(tempList);
+    org.python.types.List list1 = new org.python.types.List(tempList);
 	java.util.List<org.python.Object> tempList2 = new ArrayList<>();
 	tempList2.add(new Str("b"));
 	tempList2.add(Int.getInt(2));
-	Tuple tuple2 = new Tuple(tempList2);
-	org.add(tuple1);
-	org.add(tuple2);
+	org.python.types.List list2 = new org.python.types.List(tempList2);
+	org.add(list1);
+	org.add(list2);
 	args[0] = testList;
 	x = new Dict(args, new HashMap<>());
 	assertTrue(x.__contains__(new Str("a")).toBoolean());
@@ -226,21 +226,21 @@ public class DictTest {
 	java.util.List<org.python.Object> tempList = new ArrayList<>();
 	tempList.add(a);
 	tempList.add(one);
-	Tuple tuple1 = new Tuple(tempList);
+    org.python.types.List list1 = new org.python.types.List(tempList);
 
 	java.util.List<org.python.Object> tempList2 = new ArrayList<>();
 	tempList2.add(a);
 	tempList2.add(one);
-	Tuple tuple2 = new Tuple(tempList2);
+    org.python.types.List list2 = new org.python.types.List(tempList2);
 
-	org.add(tuple1);
-	org.add(tuple2);
+	org.add(list1);
+	org.add(list2);
 
 	objectList[0] = testList;
 
-	Dict tupleDict = new Dict(emptyMap);
-	tupleDict.update(testList, null);
-	assertEquals(tupleDict.__repr__().toJava(), "{'a': 1, 'b': 2}");
+	Dict listDict = new Dict(emptyMap);
+	listDict.update(testList, null);
+	assertEquals(listDict.__repr__().toJava(), "{'a': 1, 'b': 2}");
     }
 
     @Test(expected = NullPointerException.class)
@@ -414,7 +414,7 @@ public class DictTest {
 	dictionaryElements.add(new org.python.types.Str("a"));
 	dictionaryElements.add(org.python.types.Int.getInt(42));
 
-	arg.append(new org.python.types.Tuple(dictionaryElements));
+	arg.append(new org.python.types.List(dictionaryElements));
 	org.python.Object[] args2 = { arg };
 	dict = new Dict(args2, kwargs);
 	assertEquals(dict.__repr__().toJava(), "{'a': 42}");
@@ -471,7 +471,7 @@ public class DictTest {
 	dictionaryElements.add(org.python.types.Int.getInt(42));
 	dictionaryElements.add(org.python.types.Int.getInt(100));
 
-	arg.append(new org.python.types.Tuple(dictionaryElements));
+	arg.append(new org.python.types.List(dictionaryElements));
 	org.python.Object[] args2 = { arg };
 	Dict dict = new Dict(args2, kwargs);
     }
@@ -490,7 +490,7 @@ public class DictTest {
         assertEquals(dict.__repr__().toJava(), "{'b': 2}");
         org.python.Object obj = dict.popitem();
         assertEquals(dict.__repr__().toJava(), "{}");
-        assertEquals(obj.__repr__().toJava(),"('b', 2)");
+        assertEquals(obj.__repr__().toJava(),"['b', 2]");
         try {
             dict.popitem();
         } catch (KeyError err) {
