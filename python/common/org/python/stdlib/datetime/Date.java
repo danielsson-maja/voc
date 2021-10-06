@@ -7,6 +7,7 @@ import org.python.types.Str;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
 
 import static java.lang.Integer.parseInt;
@@ -328,11 +329,19 @@ public class Date extends org.python.types.Object {
     @org.python.Method(
         __doc__ = "Return a date object from a string",
         args = {"other"})
-    public Timestamp __fromisoformat__(Object other) {
+    public static org.python.types.Object __fromisoformat__(Object other) {
         String toString = other.toString();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            return new Timestamp(format.parse(toString).getTime());
+            Timestamp timestamp = new Timestamp(format.parse(toString).getTime());
+            long time = timestamp.getTime();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(time);
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH); // May = 4
+            int day = calendar.get(Calendar.DATE);
+            org.python.Object[] args = {getInt(year), getInt(month + 1), getInt(day)};
+            return new Date(args, Collections.EMPTY_MAP);
         } catch (ParseException e) {
             return null;
         }
@@ -344,6 +353,6 @@ public class Date extends org.python.types.Object {
         String str = "2001-05-02";
         System.out.println(date);
         System.out.println(str);
-        System.out.println(date.__fromisoformat__(date));
+        System.out.println(Date.__fromisoformat__(date).toString());
     }
 }

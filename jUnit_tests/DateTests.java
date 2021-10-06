@@ -366,7 +366,10 @@ public class DateTests {
         org.python.Object[] args = {getInt(2001), getInt(05), getInt(02)};
         try {
             Date date = new Date(args, Collections.EMPTY_MAP);
-            date.__fromisoformat__(date);
+            Date.__fromisoformat__(date);
+            assertEquals("2001", date.__year__().toString());
+            assertEquals("5", date.__month__().toString());
+            assertEquals("2", date.__day__().toString());
         } catch (BaseException e) {
             assertEquals("incorrect conversion", e.getMessage());
         }
