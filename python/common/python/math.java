@@ -50,7 +50,7 @@ public class math extends org.python.types.Module {
 
     @org.python.Method(
         name = "floor",
-        __doc__ = "factorial(value) -> value" +
+        __doc__ = "floor(value) -> value" +
             "\n" +
             "Returns the floor\n",
         args = {"value"}
@@ -63,7 +63,6 @@ public class math extends org.python.types.Module {
         } else {
             result = org.python.types.Int.getInt(1);
         }
-
 
         return result;
     }

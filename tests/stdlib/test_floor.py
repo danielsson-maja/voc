@@ -33,10 +33,3 @@ class FloorTests(TranspileTestCase):
             import math
             print(math.floor(0))
             """)
-
-
-class BuiltinFloorFunctionTests(BuiltinFunctionTestCase, TranspileTestCase):
-    functions = ["floor"]
-
-    not_implemented = [
-    ]
