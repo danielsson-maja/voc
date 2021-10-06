@@ -1,5 +1,5 @@
 package python;
-
+import java.lang.*;
 @org.python.Module(
         __doc__ =
                 "This module provides access to the mathematical functions defined by the C standard. " +
@@ -47,14 +47,19 @@ public class math extends org.python.types.Module {
         return product;
     }
 
+
     @org.python.Method(
-        __doc__  = "Return floor of the input"
+        name = "floor",
+        __doc__ = "factorial(value) -> value" +
+            "\n" +
+            "Returns the floor\n",
+        args = {"value"}
     )
 
     public static org.python.Object floor(org.python.Object value) {
         org.python.Object result;
         if (value!=null) {
-            result = math.floor(value);
+            result = Math.floor(value);
         } else {
             result = org.python.types.Int.getInt(1);
         }

@@ -3,6 +3,7 @@ from tests.utils import TranspileTestCase, BuiltinFunctionTestCase
 
 class FloorTests(TranspileTestCase):
 
+
     def test_floor_string(self):
         self.assertCodeExecution("""
             import math
