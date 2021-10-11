@@ -240,7 +240,7 @@ public class DateTime extends org.python.types.Object {
         return org.python.types.Int.getInt(convertToPython[day - 1]);
     }
 
-    public String fromordinal (long ordinal){
+    public static String fromordinal (long ordinal){
         int [] months = new int[]{31,28,31,30,31,30,31,31,30,31,30,31};
         int month = 1;
         int year = get_year(ordinal);
@@ -260,7 +260,7 @@ public class DateTime extends org.python.types.Object {
         return year + "-" + String.format("%02d", month) + "-" + String.format("%02d", ordinal);
     }
 
-    private int get_year (long ordinal){
+    private static int get_year(long ordinal){
         int days = 0;
         int year = 0;
         for (int i = 1; i < 9999; i++ ){
@@ -280,7 +280,7 @@ public class DateTime extends org.python.types.Object {
         return year;
     }
 
-    private boolean check_leap (long year){
+    private static boolean check_leap(long year){
         return year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);
     }
 
@@ -305,7 +305,7 @@ public class DateTime extends org.python.types.Object {
         return numberOfDays;
     }
 
-    private int check_how_many_leap_year(long year){
+    private static int check_how_many_leap_year(long year){
         int count_leap_years = 0;
         for (int y = 0; y < year; y+=4){
             if (check_leap(y)){
@@ -385,6 +385,20 @@ public class DateTime extends org.python.types.Object {
             return Bool.FALSE;
         }
         return Bool.TRUE;
+    }
+
+    public static org.python.types.Bool __ge__ (DateTime date, DateTime date2) {
+        if (__gt__(date,date2) == Bool.TRUE || __eq__(date,date2) == Bool.TRUE) {
+            return Bool.TRUE;
+        }
+        return Bool.FALSE;
+    }
+
+    public static org.python.types.Bool __le__ (DateTime date, DateTime date2) {
+        if (__lt__(date,date2) == Bool.TRUE || __eq__(date,date2) == Bool.TRUE) {
+            return Bool.TRUE;
+        }
+        return Bool.FALSE;
     }
 
 }
