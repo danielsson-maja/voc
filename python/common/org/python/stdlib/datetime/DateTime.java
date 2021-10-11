@@ -145,7 +145,7 @@ public class DateTime extends org.python.types.Object {
 	    return new Date(args, Collections.emptyMap());
     }
 
-    @org.python.Method(__doc__ = "")
+    @org.python.Method(__doc__ = "Return the current local date.")
     public static org.python.Object today() {
 	    java.time.LocalDateTime today = java.time.LocalDateTime.now();
 	    org.python.Object[] args = { org.python.types.Int.getInt(today.getYear()), org.python.types.Int.getInt(today.getMonth().getValue()),
@@ -225,7 +225,7 @@ public class DateTime extends org.python.types.Object {
         return values;
     }
 
-    @org.python.Method(__doc__ = "")
+    @org.python.Method(__doc__ = "Return the day of the week as an integer, where Monday is 0 and Sunday is 6. ")
     public org.python.Object weekday() {
         double [] values = get_values(this);
         double y = values[0];
@@ -240,7 +240,11 @@ public class DateTime extends org.python.types.Object {
         return org.python.types.Int.getInt(convertToPython[day - 1]);
     }
 
+    @org.python.Method(__doc__ = "Return the datetime corresponding to the proleptic Gregorian ordinal, where January 1 of year 1 has ordinal 1.")
     public static String fromordinal (long ordinal){
+        if (ordinal < 1 || ordinal > getOrdinal((DateTime) __max__())) {
+            throw new org.python.exceptions.ValueError("Value out of bounds");
+        }
         int [] months = new int[]{31,28,31,30,31,30,31,31,30,31,30,31};
         int month = 1;
         int year = get_year(ordinal);
@@ -284,7 +288,7 @@ public class DateTime extends org.python.types.Object {
         return year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);
     }
 
-    private int check_days_in_month (long month, long year){
+    private static int check_days_in_month (long month, long year){
         if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12){
             return 31;
         }
@@ -297,7 +301,7 @@ public class DateTime extends org.python.types.Object {
         return 28;
     }
 
-    private int check_days_before_month(long month, long year){
+    private static int check_days_before_month(long month, long year){
         int numberOfDays = 0;
         for (int d = 1; d<month; d++){
             numberOfDays += check_days_in_month(d, year);
@@ -315,6 +319,7 @@ public class DateTime extends org.python.types.Object {
         return count_leap_years-1;
     }
 
+    @org.python.Method(__doc__ = "Return the proleptic Gregorian ordinal of the date, where January 1 of year 1 has ordinal 1. ")
     public String toordinal (DateTime date) {
         long year = ((org.python.types.Int) date.year.__int__()).value;
         long month = ((org.python.types.Int) date.month.__int__()).value;
@@ -324,28 +329,25 @@ public class DateTime extends org.python.types.Object {
         return String.valueOf((year-1)*dayInNormalYear + check_days_before_month(month,year) + day + check_how_many_leap_year(year));
     }
 
-    public static org.python.types.Bool __lt__ (DateTime date, DateTime date2) {
-        double [] values = get_values(date);
-        double [] values2 = get_values(date2);
-        if (values[0] > values2[0]) {
-            return Bool.FALSE;
-        } else if (values[1] > values2[1]) {
-            return Bool.FALSE;
-        } else if (values[2] > values2[2]) {
-            return Bool.FALSE;
-        } else if (values[3] > values2[3]) {
-            return Bool.FALSE;
-        } else if (values[4] > values2[4]) {
-            return Bool.FALSE;
-        } else if (values[5] > values2[5]) {
-            return Bool.FALSE;
-        } else if (values[6] > values2[6]) {
-            return Bool.FALSE;
-        }
-        return Bool.TRUE;
+    private static long getOrdinal (DateTime date) {
+        long year = ((org.python.types.Int) date.year.__int__()).value;
+        long month = ((org.python.types.Int) date.month.__int__()).value;
+        long day = ((org.python.types.Int) date.day.__int__()).value;
+        long dayInNormalYear = 365;
+
+        return (year-1)*dayInNormalYear + check_days_before_month(month,year) + day + check_how_many_leap_year(year);
     }
 
-    public static org.python.types.Bool __eq__ (DateTime date, DateTime date2) {
+    @org.python.Method(__doc__ = "Return self<value.", args = {"other"})
+    public static org.python.types.Object __lt__ (DateTime date, DateTime date2) {
+        if (getOrdinal(date) < getOrdinal(date2)) {
+            return Bool.TRUE;
+        }
+        return Bool.FALSE;
+    }
+
+    @org.python.Method(__doc__ = "Return self=value.", args = {"other"})
+    public static org.python.types.Object __eq__ (DateTime date, DateTime date2) {
         double [] values = get_values(date);
         double [] values2 = get_values(date2);
         if (values[0] != values2[0]) {
@@ -366,27 +368,15 @@ public class DateTime extends org.python.types.Object {
         return Bool.TRUE;
     }
 
-    public static org.python.types.Bool __gt__ (DateTime date, DateTime date2) {
-        double [] values = get_values(date);
-        double [] values2 = get_values(date2);
-        if (values[0] < values2[0]) {
-            return Bool.FALSE;
-        } else if (values[1] < values2[1]) {
-            return Bool.FALSE;
-        } else if (values[2] < values2[2]) {
-            return Bool.FALSE;
-        } else if (values[3] < values2[3]) {
-            return Bool.FALSE;
-        } else if (values[4] < values2[4]) {
-            return Bool.FALSE;
-        } else if (values[5] < values2[5]) {
-            return Bool.FALSE;
-        } else if (values[6] < values2[6]) {
-            return Bool.FALSE;
+    @org.python.Method(__doc__ = "Return self>value.", args = {"other"})
+    public static org.python.types.Object __gt__ (DateTime date, DateTime date2) {
+        if (getOrdinal(date) > getOrdinal(date2)) {
+            return Bool.TRUE;
         }
-        return Bool.TRUE;
+        return Bool.FALSE;
     }
 
+    @org.python.Method(__doc__ = "Return self>=value.", args = {"other"})
     public static org.python.types.Bool __ge__ (DateTime date, DateTime date2) {
         if (__gt__(date,date2) == Bool.TRUE || __eq__(date,date2) == Bool.TRUE) {
             return Bool.TRUE;
@@ -394,6 +384,7 @@ public class DateTime extends org.python.types.Object {
         return Bool.FALSE;
     }
 
+    @org.python.Method(__doc__ = "Return self<=value.", args = {"other"})
     public static org.python.types.Bool __le__ (DateTime date, DateTime date2) {
         if (__lt__(date,date2) == Bool.TRUE || __eq__(date,date2) == Bool.TRUE) {
             return Bool.TRUE;

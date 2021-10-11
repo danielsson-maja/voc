@@ -198,6 +198,20 @@ public class test_DateTime {
     }
 
     @Test
+    public void test_lt_true_2 () {
+        org.python.types.Int[] args = date_time_args(2021,9,15,0,0,0,0);
+        java.util.Map<java.lang.String, org.python.Object> kwargs;
+        kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
+        DateTime test = new DateTime(args,kwargs);
+        org.python.types.Int[] args2 = date_time_args(2021,10,1,0,0,0,0);
+        java.util.Map<java.lang.String, org.python.Object> kwargs2;
+        kwargs2 = new java.util.HashMap<java.lang.String, org.python.Object>();
+        DateTime test2 = new DateTime(args2,kwargs2);
+        assertEquals(Bool.TRUE,DateTime.__lt__(test,test2));
+    }
+
+
+    @Test
     public void test_gt_false () {
         org.python.types.Int[] args = date_time_args(2021,9,15,0,0,01,0);
         java.util.Map<java.lang.String, org.python.Object> kwargs;
@@ -213,6 +227,19 @@ public class test_DateTime {
         kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
         DateTime test = new DateTime(args,kwargs);
         assertEquals(Bool.TRUE,DateTime.__gt__((DateTime) DateTime.today(),test));
+    }
+
+    @Test
+    public void test_gt_true_2 () {
+        org.python.types.Int[] args = date_time_args(2021,9,15,0,0,0,0);
+        java.util.Map<java.lang.String, org.python.Object> kwargs;
+        kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
+        DateTime test = new DateTime(args,kwargs);
+        org.python.types.Int[] args2 = date_time_args(2021,10,1,0,0,0,0);
+        java.util.Map<java.lang.String, org.python.Object> kwargs2;
+        kwargs2 = new java.util.HashMap<java.lang.String, org.python.Object>();
+        DateTime test2 = new DateTime(args2,kwargs2);
+        assertEquals(Bool.TRUE,DateTime.__gt__(test2,test));
     }
 
     @Test
@@ -257,6 +284,13 @@ public class test_DateTime {
         DateTime test = new DateTime(args,kwargs);
         long ordinal = 737687;
         assertEquals("2020-09-19", test.fromordinal(ordinal));
+    }
+
+    @Test
+    public void test_from_ordinal_exception () {
+        Assertions.assertThrows(ValueError.class, () -> {
+            DateTime.fromordinal(-1);
+        });
     }
 
     @Test
