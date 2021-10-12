@@ -185,7 +185,7 @@ public class test_DateTime {
         java.util.Map<java.lang.String, org.python.Object> kwargs;
         kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
         DateTime test = new DateTime(args,kwargs);
-        assertEquals(Bool.FALSE,DateTime.__lt__((DateTime) DateTime.today(),test));
+        assertEquals(Bool.FALSE,((DateTime) DateTime.today()).__lt__(test));
     }
 
     @Test
@@ -194,7 +194,7 @@ public class test_DateTime {
         java.util.Map<java.lang.String, org.python.Object> kwargs;
         kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
         DateTime test = new DateTime(args,kwargs);
-        assertEquals(Bool.TRUE,DateTime.__lt__(test,(DateTime) DateTime.today()));
+        assertEquals(Bool.TRUE,test.__lt__((DateTime) DateTime.today()));
     }
 
     @Test
@@ -207,7 +207,26 @@ public class test_DateTime {
         java.util.Map<java.lang.String, org.python.Object> kwargs2;
         kwargs2 = new java.util.HashMap<java.lang.String, org.python.Object>();
         DateTime test2 = new DateTime(args2,kwargs2);
-        assertEquals(Bool.TRUE,DateTime.__lt__(test,test2));
+        assertEquals(Bool.TRUE,test.__lt__(test2));
+    }
+
+    @Test
+    public void test_le_true () {
+        org.python.types.Int[] args = date_time_args(2021,9,15,0,0,0,0);
+        java.util.Map<java.lang.String, org.python.Object> kwargs;
+        kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
+        DateTime test = new DateTime(args,kwargs);
+        assertEquals(Bool.TRUE,test.__le__((DateTime) DateTime.today()));
+        assertEquals(Bool.TRUE,test.__le__(test));
+    }
+
+    @Test
+    public void test_le_false () {
+        org.python.types.Int[] args = date_time_args(2021,9,15,0,0,0,0);
+        java.util.Map<java.lang.String, org.python.Object> kwargs;
+        kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
+        DateTime test = new DateTime(args,kwargs);
+        assertEquals(Bool.FALSE,((DateTime) DateTime.today()).__le__(test));
     }
 
 
@@ -217,7 +236,7 @@ public class test_DateTime {
         java.util.Map<java.lang.String, org.python.Object> kwargs;
         kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
         DateTime test = new DateTime(args,kwargs);
-        assertEquals(Bool.FALSE,DateTime.__gt__(test,(DateTime) DateTime.today()));
+        assertEquals(Bool.FALSE,test.__gt__((DateTime) DateTime.today()));
     }
 
     @Test
@@ -226,7 +245,27 @@ public class test_DateTime {
         java.util.Map<java.lang.String, org.python.Object> kwargs;
         kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
         DateTime test = new DateTime(args,kwargs);
-        assertEquals(Bool.TRUE,DateTime.__gt__((DateTime) DateTime.today(),test));
+        assertEquals(Bool.TRUE,((DateTime) DateTime.today()).__gt__(test));
+    }
+
+    @Test
+    public void test_ge_true () {
+        org.python.types.Int[] args = date_time_args(2021,9,15,0,0,01,0);
+        java.util.Map<java.lang.String, org.python.Object> kwargs;
+        kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
+        DateTime test = new DateTime(args,kwargs);
+        DateTime today = (DateTime) DateTime.today();
+        assertEquals(Bool.TRUE,today.__ge__(test));
+        assertEquals(Bool.TRUE,today.__ge__(today));
+    }
+
+    @Test
+    public void test_ge_false () {
+        org.python.types.Int[] args = date_time_args(2021,9,15,0,0,01,0);
+        java.util.Map<java.lang.String, org.python.Object> kwargs;
+        kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
+        DateTime test = new DateTime(args,kwargs);
+        assertEquals(Bool.FALSE,test.__ge__((DateTime) DateTime.today()));
     }
 
     @Test
@@ -239,7 +278,7 @@ public class test_DateTime {
         java.util.Map<java.lang.String, org.python.Object> kwargs2;
         kwargs2 = new java.util.HashMap<java.lang.String, org.python.Object>();
         DateTime test2 = new DateTime(args2,kwargs2);
-        assertEquals(Bool.TRUE,DateTime.__gt__(test2,test));
+        assertEquals(Bool.TRUE,test2.__gt__(test));
     }
 
     @Test
@@ -251,7 +290,7 @@ public class test_DateTime {
         org.python.types.Int[] args2 = new org.python.types.Int[]{};
         java.util.Map<java.lang.String, org.python.Object> kwargs2 = date_time_kwargs(2021,9,15,10,0,01,2758);
         DateTime test2 = new DateTime(args2,kwargs2);
-        assertEquals(Bool.FALSE,DateTime.__eq__(test,test2));
+        assertEquals(Bool.FALSE,test.__eq__(test2));
     }
 
     @Test
@@ -263,7 +302,7 @@ public class test_DateTime {
         org.python.types.Int[] args2 = new org.python.types.Int[]{};
         java.util.Map<java.lang.String, org.python.Object> kwargs2 = date_time_kwargs(2021,9,15,10,0,01,2759);
         DateTime test2 = new DateTime(args2,kwargs2);
-        assertEquals(Bool.TRUE,DateTime.__eq__(test,test2));
+        assertEquals(Bool.TRUE,test.__eq__(test2));
     }
 
     @Test

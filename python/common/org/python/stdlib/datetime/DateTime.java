@@ -339,17 +339,17 @@ public class DateTime extends org.python.types.Object {
     }
 
     @org.python.Method(__doc__ = "Return self<value.", args = {"other"})
-    public static org.python.types.Object __lt__ (DateTime date, DateTime date2) {
-        if (getOrdinal(date) < getOrdinal(date2)) {
+    public org.python.types.Object __lt__(DateTime date) {
+        if (getOrdinal(this) < getOrdinal(date)) {
             return Bool.TRUE;
         }
         return Bool.FALSE;
     }
 
     @org.python.Method(__doc__ = "Return self=value.", args = {"other"})
-    public static org.python.types.Object __eq__ (DateTime date, DateTime date2) {
-        double [] values = get_values(date);
-        double [] values2 = get_values(date2);
+    public org.python.types.Object __eq__ (DateTime date) {
+        double [] values = get_values(this);
+        double [] values2 = get_values(date);
         if (values[0] != values2[0]) {
             return Bool.FALSE;
         } else if (values[1] != values2[1]) {
@@ -369,24 +369,24 @@ public class DateTime extends org.python.types.Object {
     }
 
     @org.python.Method(__doc__ = "Return self>value.", args = {"other"})
-    public static org.python.types.Object __gt__ (DateTime date, DateTime date2) {
-        if (getOrdinal(date) > getOrdinal(date2)) {
+    public org.python.types.Object __gt__ (DateTime date) {
+        if (getOrdinal(this) > getOrdinal(date)) {
             return Bool.TRUE;
         }
         return Bool.FALSE;
     }
 
     @org.python.Method(__doc__ = "Return self>=value.", args = {"other"})
-    public static org.python.types.Bool __ge__ (DateTime date, DateTime date2) {
-        if (__gt__(date,date2) == Bool.TRUE || __eq__(date,date2) == Bool.TRUE) {
+    public org.python.types.Object __ge__ (DateTime date) {
+        if (this.__gt__(date) == Bool.TRUE || this.__eq__(date) == Bool.TRUE) {
             return Bool.TRUE;
         }
         return Bool.FALSE;
     }
 
     @org.python.Method(__doc__ = "Return self<=value.", args = {"other"})
-    public static org.python.types.Bool __le__ (DateTime date, DateTime date2) {
-        if (__lt__(date,date2) == Bool.TRUE || __eq__(date,date2) == Bool.TRUE) {
+    public org.python.types.Object __le__ (DateTime date) {
+        if (this.__lt__(date) == Bool.TRUE || this.__eq__(date) == Bool.TRUE) {
             return Bool.TRUE;
         }
         return Bool.FALSE;
