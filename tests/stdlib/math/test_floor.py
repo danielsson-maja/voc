@@ -3,6 +3,13 @@ from tests.utils import TranspileTestCase
 
 class FloorTests(TranspileTestCase):
 
+
+    def test_floor_string(self):
+        self.assertCodeExecution("""
+            import math
+            print(math.floor("Test floor"))
+            """)
+
     def test_floor_positive(self):
         self.assertCodeExecution("""
             import math
