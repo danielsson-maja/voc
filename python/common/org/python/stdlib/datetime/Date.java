@@ -346,13 +346,32 @@ public class Date extends org.python.types.Object {
             return null;
         }
     }
+    @org.python.Method(
+        __doc__ = "Replace the date format into the format you want",
+        args = {"date,replaceToFormat"})
+    public static org.python.types.Str __replace__(String date,String replaceToFormat) {
+
+        try {
+            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-dd-mm");
+            SimpleDateFormat format2 = new SimpleDateFormat(replaceToFormat);
+            java.util.Date result_date = format1.parse(date);
+            System.out.println(format2.format(result_date));
+            String date_Formated = format2.format(result_date);
+            return new org.python.types.Str(date_Formated+"");
+        } catch (ParseException e) {
+            return null;
+        }
+    }
 
     public static void main(String[] args) {
         org.python.Object[] args1 = {getInt(2001), getInt(05), getInt(02)};
         Date date = new Date(args1, Collections.EMPTY_MAP);
         String str = "2001-05-02";
-        System.out.println(date);
+        System.out.println(date.toString());
+        System.out.println(args1);
         System.out.println(str);
         System.out.println(Date.__fromisoformat__(date).toString());
+        System.out.println("Date format: "+ Date.__replace__(date.toString(),"MM/dd/yyyy"));
+
     }
 }
