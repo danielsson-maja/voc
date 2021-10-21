@@ -1,4 +1,5 @@
 package python;
+import org.Python;
 import java.lang.*;
 @org.python.Module(
         __doc__ =
@@ -56,14 +57,16 @@ public class math extends org.python.types.Module {
         args = {"value"}
     )
 
-    public static org.python.Object floor(org.python.Object value) {
+    public static org.python.Object floor(org.python.Object obj) {
         org.python.Object result;
-        if (value!=null) {
-            result = Math.floor(value);
+        double i = ((org.python.types.Int) obj.__int__()).value;
+        int IntValue = (int) Math.floor(i);
+        if (obj!=null) {
+            result = org.python.types.Int.getInt(IntValue);    ;
         } else {
             result = org.python.types.Int.getInt(1);
         }
-
+        
         return result;
     }
 }
